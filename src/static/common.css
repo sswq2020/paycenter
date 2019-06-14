@@ -1,0 +1,210 @@
+.container .banner{
+    width:100px;
+    height:50px;
+}
+.container .search-box {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+    margin: 20px 0 0 0;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+}
+.container .search-box .form-item {
+    /*width:340px;*/
+    /*display: flex;*/
+    /*-ms-align-items: center;*/
+    /*align-items: center;*/
+    margin-right: 30px;
+}
+.container .search-box .form-item label {
+    display: block;
+    padding-bottom: 5px;
+    width: auto;
+    font-size: 12px;
+}
+.container .search-box .form-item .el-input {
+    max-width: 240px;
+}
+.container .search-box .form-item .el-button {
+    margin-top: 20px;
+}
+.container .search-box .form-item .el-button--primary {
+    margin-left: 20px;
+}
+.container .table {
+    width: 100%;
+    background-color: white;
+}
+.container .det {
+    color: #F5222D;
+}
+.container .activate {
+    color: #67c23a;
+}
+.container .is-disabled {
+    color :#c0c4cc;
+}
+.detail .table {
+    width: 100%;
+    min-height: 600px;
+    background-color: white;
+}
+.detail .table .formTable {
+    width: 96%;
+    padding-top: 30px;
+}
+.detail .table .formTable .el-form-item{
+    margin-bottom: 16px;
+}
+.detail .table .el-select{
+    width: 100%;
+}
+.detail .table .el-select .el-input .el-input__inner{
+    height: 32px !important ;
+}
+.detail .table .formTable .el-form-item .el-autocomplete{
+    display: block !important ;
+}
+.detail .btn {
+    width: 86%;
+    bottom: 20px;
+    position: fixed;
+    height: 50px;
+    background-color: #f6f8fa;
+    margin-left: 20px;
+    /*display:flex;*/
+}
+.detail .btn .el-button {
+    position: absolute;
+    margin-left: 20px;
+    margin-top: 10px;
+    /*height: 32px;*/
+}
+.detail .el-textarea {
+    margin-top: 5px;
+}
+.detail .el-cascader--small {
+    width: 100%;
+}
+
+.add-container .form-item{
+    /*width:50%;*/
+    /*float: left;*/
+}
+.add-container .big{
+    width:100%;
+}
+.add-container .btn{
+    clear: both;
+    text-align: center;
+    margin-left: 200px;
+}
+.el-table--striped .el-table__body tr.el-table__row--striped td {
+    background-color: #F6F8FA;
+}
+.el-table td,.el-table tr,.el-table th{
+    padding: 0;
+    height: 34px !important ;
+    font-size: 12px;
+}
+.el-table .cell{
+    /*line-height: 34px;*/
+    max-height: 34px !important;
+    padding: 0;
+}
+.breadcrumb-container .btns img{
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    padding-top: 19px;
+    margin-left: -15px;
+}
+.hlB_buts{
+    background: #F2F2F2;
+}
+.el-dialog__header {
+    text-align: left;
+    padding: 0 0 0 25px;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid rgba(233, 233, 233, 1);
+}
+.el-dialog__header .el-dialog__title{
+    font-size: 14px;
+}
+.el-dialog--center .el-dialog__body {
+    padding: 25px 25px 3px;
+}
+.add-container .el-select{
+    display: block;
+}
+.el-tree__empty-text{
+    position: relative;
+}
+.el-tree-node__content{
+    margin-top: 10px;
+}
+.container .tree-box .left{
+    width: 50%;
+}
+.add-container .el-tree__empty-block {
+    text-align: left;
+}
+
+.el-form h4{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 1%;
+    margin-bottom: 20px;
+    background-color: #f6f8fa;
+}
+.el-cascader-menu {
+    min-width: 120px;
+}
+.el-cascader-menu .el-cascader-menu__item{
+    font-size: 12px;
+    padding: 8px 5px;
+}
+.tree-con .el-tree__empty-block{
+    text-align: left;
+}
+#common-tree .el-tree__empty-text,.permissionTree .el-tree__empty-text{
+    left: 0 !important;
+}
+.permissionTree .el-tree__empty-block{
+    margin-top: 50px;
+}
+.el-button--text{
+    font-size: 12px;
+}
+.btn .el-form-item__content{
+    margin-left: 140px !important;
+}
+.HlFontIcon .el-dialog{
+    margin-top: 3% !important;
+}
+.HlFontIcon .el-dialog__body{
+    padding: 20px 20px 20px 17px !important;
+}
+.el-dialog{
+    max-height:calc(100% - 200px);
+    display:flex;
+    flex-direction:column;
+}
+.el-dialog__body{
+    overflow:auto
+}
+.tree-container .el-tree-node{
+    /*max-height:calc(100% - 50px);*/
+    overflow: auto;
+}
+#perm .el-radio+.el-radio {
+    margin-left: 5px;
+}
+#perm .el-radio__label {
+    padding-left: 5px !important;
+}
+

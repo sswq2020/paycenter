@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+const shell = require('shelljs');
+
+function command(cmd) {
+  if (shell.exec(cmd).code !== 0) {
+    shell.echo(`Error: ${cmd}`);
+    shell.exit(1);
+  }
+}
+
+/** 命令行的所有参数 */
+const options = {};
+const argv = process.argv.slice(2);
+argv.forEach(row => {
+  const keyVal = row.split('=');
+  const [key, value] = keyVal;
+  options[key] = value || null;
+});
+
+
+const splitLine = '==================================';
+const now = new Date();
+
+function testDeploy() {
+  shell.echo(splitLine);
+  shell.echo('Testing deploy:');
+  shell.echo(splitLine);
+  command('npm run test');
+  shell.echo('copy to test server');
+  shell.echo(splitLine);
+  command('scp -r dist/*  root@10.20.129.28:/home/finance-test/dist');
+  command('rm ./dist -rf');
+  shell.echo('TECH_TEST_ENV Deployed!');
+}
+
+function testZipDeploy() {
+  const zipName = `finance_test_${now}.zip`;
+  shell.echo(splitLine);
+  shell.echo('Testing zip deploy:');
+  shell.echo(splitLine);
+  command('npm run test');
+  shell.echo(`zip to ${zipName}`);
+  shell.echo(splitLine);
+  command(`zip -m -r -q ${zipName} ./dist`);
+  shell.echo('TECH_TEST_ZIP_ENV Deployed!');
+}
+
+
+if (options.t !== undefined) {
+  testDeploy();
+  return;
+}
+
+if (options.tz !== undefined) {
+  testZipDeploy();
+  return;
+}
+
+if (options.a !== undefined) {
+  return;
+}
+

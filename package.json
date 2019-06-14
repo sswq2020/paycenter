@@ -1,0 +1,67 @@
+{
+  "name": "hlet-jsj",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "vue-cli-service serve",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test": "cross-env NODE_ENV=test vue-cli-service build",
+    "pro": "cross-env NODE_ENV=production vue-cli-service build"
+  },
+  "dependencies": {
+    "element-ui": "^2.6.1",
+    "hletong-ui": "^0.4.5",
+    "vue": "^2.6.6",
+    "vue-router": "^3.0.2",
+    "vuex": "^3.1.0",
+    "path-to-regexp": "^2.4.0",
+    "mockjs": "^1.0.1-beta3",
+    "number-precision": "^1.3.1",
+    "numb-form": "^1.0.2",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.5.0",
+    "@vue/cli-plugin-eslint": "^3.5.0",
+    "@vue/cli-service": "^3.5.0",
+    "axios": "^0.18.0",
+    "babel-eslint": "^10.0.1",
+    "cookie-parse": "^0.4.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "qs": "^6.6.0",
+    "shelljs": "^0.8.3",
+    "spritejs": "^2.27.4",
+    "vue-cropper": "^0.4.8",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
