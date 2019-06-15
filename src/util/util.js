@@ -100,7 +100,7 @@ export const downloadExcel = (response, defualtitle) => {
     let link = document.createElement('a')
     link.style.display = 'none'
     link.href = url
-    link.setAttribute('download',defualtitle)
+    link.setAttribute('download',defualtitle + ".xls")
     document.body.appendChild(link)
     link.click()
 }
