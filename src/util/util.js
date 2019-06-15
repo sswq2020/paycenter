@@ -87,3 +87,40 @@ export const filterProps = (origin, target) => {
     }
     return obj;
 }
+
+/** 
+ * @description 下载Blob流文件到Excel并且自动打开
+ * @param {any} stream 流文件
+ * @param {String} defualtitle 自定义Excel标题
+ * @returns void 
+*/
+export const downloadExcel = (response, defualtitle) => {
+    let b = new Blob([response],{type:"application/vnd.ms-excel;charset=utf-8"});
+    const url = window.URL.createObjectURL(b);
+    let link = document.createElement('a')
+    link.style.display = 'none'
+    link.href = url
+    link.setAttribute('download',defualtitle)
+    document.body.appendChild(link)
+    link.click()
+}
+
+
+/** 
+ * @description 删除不需要的的属性
+ * @param {any} obj 操作对象
+ * @param {Array} keys 需要删除的对象属性数组
+ * @returns obj 
+*/
+export const deleteProps = (obj, ...keys) => {
+    if(obj === undefined || obj === null ) {
+        return obj;
+    }
+    for(let i = 0; i < keys.length;i++){
+         let key = keys[i];
+         if(obj.hasOwnProperty(key)){
+             delete obj[key]
+         } 
+    }
+    return obj
+}
