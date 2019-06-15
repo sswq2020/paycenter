@@ -202,11 +202,6 @@ const defaulttableHeader = [
     width: "180"
   },
   {
-    prop: "payerBankNo",
-    label: "转出账户号",
-    width: "180"
-  },
-  {
     prop: "payeeAccountName",
     label: "转入账户名",
     width: "180"
@@ -267,6 +262,7 @@ export default {
       "isListDataLoading",
       "isBalanceDataLoading",
       "isSyncDataLoading",
+      "isDownExcelLoading",
       "listParams",
       "listData",
       "balanceList"
@@ -305,7 +301,8 @@ export default {
       "clearListParams",
       "changePage",
       "changePageSize",
-      "manualSync"
+      "manualSync",
+      "download"
     ]),
     sizeChange(size) {
       this.changePageSize(size);
