@@ -219,6 +219,24 @@ const getfetch = (url, params, methods = 'post') => {
     })
 }
 
+/*
+*
+* 封装axios实例，专门做Blob下载的 by sswq
+* */
+const fetchBlob = (url, params, methods = 'post') => {
+    return new Promise((resolve, reject) => {
+        if (methods == 'get') {
+            url = url + '?' + qs.stringify(params);
+        }
+        instance[methods](url, params,{responseType: 'arraybuffer'}).then(res => { // 不加这个{responseType: 'arraybuffer'},流直接解析成字符串
+                resolve(res)
+            }
+        ).catch(err => {
+                reject(err);
+            })
+    })
+}
+
 export default {
     /**
      *登陆接口
@@ -386,6 +404,14 @@ export default {
      * */
     manualSync(params) {
         return fetch(financeURL + '/web/settlementPayOrder/notifyCallback', params,'get')
+    },
+    /**
+     * @author sswq
+     * @param params
+     * @description 历史或已完成结算订单下载Excel
+     * */
+    tradeDetailED(params) {
+        return fetchBlob(financeURL + '/web/settlementPayOrder/excelDownload/tradeDetail', params)
     },
     /**
      * @author sswq
