@@ -1,7 +1,13 @@
 <template>
   <div class="container single-page">
     <hlBreadcrumb :data="breadTitle">
-      <el-button class="hlB_buts" size="small" v-if="false" icon="el-icon-download">批量导出</el-button>
+      <el-button 
+        class="hlB_buts" 
+        size="small"
+        v-if="batchexport"
+        :loading="isDownExcelLoading"
+        @click="download" 
+        icon="el-icon-download">批量导出</el-button>
       <el-button
         class="hlB_buts"
         size="small"
@@ -245,6 +251,7 @@ export default {
     return {
       /**权限*/
       datasync: false,
+      batchexport:false,
       breadTitle: ["财务中心", "财务转账记录"],
       /**表格相关*/
       tableHeader: defaulttableHeader,
@@ -339,6 +346,7 @@ export default {
     },
     perm() {
       this.datasync = judgeAuth("finance:tradedetail:datasync");
+      this.batchexport = judgeAuth("finance:tradedetail:export");
     }
   },
   mounted() {
