@@ -1,8 +1,10 @@
 import api from '@/api'
 import { Message } from 'element-ui';
 import DICT from '@/util/dict.js'
-import {requestParamsByTimeRange,requestParamsByStatus} from '@/common/util.js'
+import { downloadExcel, deleteProps } from '@/util/util.js'
+import { requestParamsByTimeRange, requestParamsByStatus } from '@/common/util.js'
 import _ from 'lodash'
+import moment from 'moment'
 const defaultlistParams = {
     creditNo: '', // 交易凭证号
     settlementNo: '', // 业务单号
@@ -23,17 +25,17 @@ const defaultlistData = {
 }
 
 /**只是请求参数的key,页面中的观察属性却不需要，只在请求的那一刻由timeRange赋值*/
-const EXTRA_PARAMS_KEYS = ['startTime','endTime'];
+const EXTRA_PARAMS_KEYS = ['startTime', 'endTime'];
 
 /**比较listParams是否和原来的listParams是否发生变化*/
-const diff = (a,b)=>{
+const diff = (a, b) => {
     const keys = Object.keys(a);
     for (let i = 0; i < keys.length; i++) {
         let key = keys[i];
         if (key == 'pageSize' || key == 'page') {
             continue;
         } else {
-            if(!(_.isEqual(a[key],b[key]))){
+            if (!(_.isEqual(a[key], b[key]))) {
                 return true
             }
         }
@@ -45,16 +47,17 @@ const store = {
     namespaced: true,
     state: {
         isListDataLoading: false,
-        isBalanceDataLoading:false,    // 查询余额loading
+        isBalanceDataLoading: false,    // 查询余额loading
         isSyncDataLoading: false, // 手动数据同步loading
+        isDownExcelLoading: false, // 下载的loading
         listParams: {
             ...defaultlistParams
         },
-        diffListParams:_.cloneDeep(defaultlistParams),
+        diffListParams: _.cloneDeep(defaultlistParams),
         listData: {
             ...defaultlistData
         },
-        balanceList:[]
+        balanceList: []
     },
     mutations: {
         overrideStateProps(state, payload) {
@@ -72,9 +75,9 @@ const store = {
         }
     },
     actions: {
-        async getListDataBylistParams({dispatch,commit,state}){
-            const flag = diff(state.listParams,state.diffListParams);
-            if(flag) {
+        async getListDataBylistParams({ dispatch, commit, state }) {
+            const flag = diff(state.listParams, state.diffListParams);
+            if (flag) {
                 commit("updateStateProps", {
                     name: "listParams",
                     value: {
@@ -92,9 +95,9 @@ const store = {
         },
         async getListData({ commit, state }) {
             const { listParams } = state;
-            const { timeRange,status } = listParams;
+            const { timeRange, status } = listParams;
             const _reqParams_ = requestParamsByTimeRange(listParams, timeRange, ...EXTRA_PARAMS_KEYS)
-            const reqParams = requestParamsByStatus(_reqParams_,status)
+            const reqParams = requestParamsByStatus(_reqParams_, status)
             commit("overrideStateProps", { isListDataLoading: true });
             const response = await api.tradeDetail(reqParams);
             commit("overrideStateProps", { isListDataLoading: false });
@@ -103,11 +106,11 @@ const store = {
                     commit("overrideStateProps", { listData: response.data });
                     break;
                 default:
-                    commit("overrideStateProps", {listData: {...defaultlistData}});
+                    commit("overrideStateProps", { listData: { ...defaultlistData } });
                     Message.error(response.mesg);
                     break;
             }
-            commit("overrideStateProps", { diffListParams: _.cloneDeep(state.listParams)});
+            commit("overrideStateProps", { diffListParams: _.cloneDeep(state.listParams) });
         },
         async changePage({ dispatch, commit }, payload) {
             commit("updateStateProps", {
@@ -153,7 +156,7 @@ const store = {
                     break;
             }
         },
-        async manualSync({ commit }){
+        async manualSync({ commit }) {
             commit("overrideStateProps", { isSyncDataLoading: true });
             const response = await api.manualSync();
             commit("overrideStateProps", { isSyncDataLoading: false });
@@ -164,8 +167,20 @@ const store = {
                 default:
                     Message.error(response.mesg);
                     break;
-            }            
-        }
+            }
+        },
+        async download({ commit, state }) {
+            const { listParams } = state;
+            const { timeRange, status } = listParams;
+            const _reqParams_ = requestParamsByTimeRange(listParams, timeRange, ...EXTRA_PARAMS_KEYS)
+            let reqParams = requestParamsByStatus(_reqParams_, status)
+            // 去掉页数的参数
+            reqParams = deleteProps(reqParams, 'page', 'pageSize')
+            commit("overrideStateProps", { isDownExcelLoading: true });
+            const response = await api.tradeDetailED(reqParams);
+            commit("overrideStateProps", { isDownExcelLoading: false });
+            downloadExcel(response, `${moment().format("YYYY年MM月DD日 HH时mm分ss秒")}筛选的历史或已完成结算订单报表`)
+        },
     }
 }
 

@@ -232,11 +232,6 @@ const defaulttableHeader = [
     // width: "120"
   },
   {
-    prop: "payerBankNo",
-    label: "转出账户号"
-    // width: "120"
-  },
-  {
     prop: "payeeAccountName",
     label: "转入账户名"
     // width: "120"

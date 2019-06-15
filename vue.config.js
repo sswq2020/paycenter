@@ -8,8 +8,8 @@ module.exports = {
         proxy: {
             '/api': {
                 // target: 'https://beidou.hletong.com/',
-                // target: '192.168.4.16:25090',
-                target: 'http://10.1.15.106:8445/',//田间波主机
+                target: 'http://192.168.4.16:25097/', // 仲栋平 不需要跟payacc
+                // target: 'http://10.1.15.106:8445/',//田间波主机
                 // target:'http://10.1.15.119:8202/',
                 // target:'http://192.168.4.16:25083/',//liudongcai serve
                 changeOrigin: true,
