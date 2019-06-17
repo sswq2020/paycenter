@@ -175,8 +175,11 @@ const store = {
             const { timeRange } = listParams;
             const {accName} = bankAccountInfoDetail;
             if(!limit7(timeRange)) {return}
+            const reqParams = requestParamsByTimeRange(listParams, timeRange, ...EXTRA_PARAMS_KEYS);
+            const params = { ...reqParams, ...bankAccountInfoDetail }
+            if(!limit7(timeRange)) {return}
             commit("overrideStateProps", { isFileExportLoading: true });
-            let response = await getFileData(api.getBillDetail, listParams);
+            let response = await getFileData(api.getBillDetail, params);
             if (response.length > 0) {
                 commit("overrideStateProps", { isFileExportLoading: false });
                 exportXlsx(listColumnsToXLSXHeader(columnsNames), rowAdapter(response), `账户${accName}导出${moment().format(
