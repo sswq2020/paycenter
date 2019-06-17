@@ -320,12 +320,12 @@ export default {
     // 获取验证码
     getVerfyCode(params) {
         // return formDataRequest(`${validUrl}/mc-client/sms/template/smsService/sendVerifiCode`, params)
-        return formDataRequest(`/mc-client/sms/template/smsService/sendVerifiCode`, params)
+        return formDataRequest(`/sms/mc-client/sms/template/smsService/sendVerifiCode`, params)
     },
     // 校验验证码
     reseverifiCodetPwd(params) {
         // return formDataRequest(`${validUrl}/mc-client/sms/template/smsService/verifiCode`, params)
-        return formDataRequest(`/mc-client/sms/template/smsService/verifiCode`, params)
+        return formDataRequest(`/sms/mc-client/sms/template/smsService/verifiCode`, params)
     },
     // #region  财务中心
     /**
