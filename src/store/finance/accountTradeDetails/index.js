@@ -171,16 +171,17 @@ const store = {
             dispatch("getListDataBylistParams");
         },
         async getFile({ commit, state }) {
-            const { listParams } = state;
+            const { listParams,bankAccountInfoDetail } = state;
             const { timeRange } = listParams;
+            const {accName} = bankAccountInfoDetail;
             if(!limit7(timeRange)) {return}
             commit("overrideStateProps", { isFileExportLoading: true });
             let response = await getFileData(api.getBillDetail, listParams);
             if (response.length > 0) {
                 commit("overrideStateProps", { isFileExportLoading: false });
-                exportXlsx(listColumnsToXLSXHeader(columnsNames), rowAdapter(response), `${moment().format(
+                exportXlsx(listColumnsToXLSXHeader(columnsNames), rowAdapter(response), `账户${accName}导出${moment().format(
                     "YYYY年MM月DD日 HH时mm分ss秒"
-                  )}筛选的交易明细报表`);
+                  )}交易流水报表`);
             } else {
                 Message.error("文件出错，请重新尝试");
                 commit("overrideStateProps", { isFileExportLoading: false });
