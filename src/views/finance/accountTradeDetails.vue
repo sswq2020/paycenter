@@ -1,6 +1,13 @@
 <template>
   <div class="container single-page">
-    <hlBreadcrumb :data="breadTitle"></hlBreadcrumb>
+    <hlBreadcrumb :data="breadTitle">
+      <el-button 
+        class="hlB_buts" 
+        size="small"
+        :loading="isFileExportLoading"
+        @click="getFile" 
+        icon="el-icon-download">批量导出</el-button>
+    </hlBreadcrumb>
     <div class="banner-wrap">
       <showbanner>
         <div class="colum">
@@ -65,13 +72,13 @@ import { dayMixin } from "@/common/mixin.js";
 import heltable from "@/components/hl_table";
 import hlBreadcrumb from "@/components/hl-breadcrumb";
 import showbanner from "./showbanner.vue";
-const defaulttableHeader = [
+export const defaulttableHeader = [
   {
     prop: "tranTime",
     label: "交易时间"
   },
   {
-    prop: "dorc",
+    prop: "dorcText",
     label: "交易类型"
   },
   {
@@ -122,7 +129,8 @@ export default {
       "bankAccountInfoDetail",
       "listParams",
       "listData",
-      "isListDataLoading"
+      "isListDataLoading",
+      "isFileExportLoading"
     ]),
     breadTitle() {
       return ["财务中心", "账户:"+this.bankAccountInfoDetail.accName + "交易明细"];
@@ -132,10 +140,10 @@ export default {
     ...mapActions("accountTradeDetails", [
       "getListDataBylistParams",
       "changePage",
-      "clearListParams"
+      "clearListParams",
+      "getFile"
     ]),
     pageChange(page) {
-      console.log("跳转第几页"+page);
       this.changePage(page);
     },
     init() {
