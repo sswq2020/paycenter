@@ -42,8 +42,9 @@ export function requestParamsByStatus(Params,arr=[],key='status'){
     return obj
 }
 
-export function failHtml(list){
-    return list.map((item)=>{
+export function failHtml(obj){
+    let values = Object.values(obj);
+    return values.map((item)=>{
           return `<div>${item}</div>`
      }).join("")
  }

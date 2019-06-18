@@ -166,7 +166,7 @@ const store = {
                     Message.success(response.mesg);
                     break;
                 default:
-                    Message_fail(failHtml, response.data.failList)
+                    Message_fail(failHtml, response.data.failMap)
                     break;
             }
             dispatch("getListData");
