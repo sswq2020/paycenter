@@ -310,16 +310,6 @@ const defaulttableHeader = [
     prop: "createdTime",
     label: "创建时间",
     width: "180"
-  },
-  {
-    prop: "cashier",
-    label: "转账人",
-    width: "180"
-  },
-  {
-    prop: "payTime",
-    label: "转账时间",
-    width: "180"
   }
 ];
 export default {
