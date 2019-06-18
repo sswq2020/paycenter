@@ -228,7 +228,7 @@ const fetchBlob = (url, params, methods = 'post') => {
         if (methods == 'get') {
             url = url + '?' + qs.stringify(params);
         }
-        instance[methods](url, params,{responseType: 'arraybuffer'}).then(res => { // 不加这个{responseType: 'arraybuffer'},流直接解析成字符串
+        instance[methods](url, params,{responseType: 'arraybuffer',headers:{ResponseFilter:false}}).then(res => { // 不加这个{responseType: 'arraybuffer'},流直接解析成字符串
                 resolve(res)
             }
         ).catch(err => {

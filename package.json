@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "element-ui": "^2.6.1",
-    "hletong-ui": "^0.4.9",
+    "hletong-ui": "^0.5.3",
     "vue": "^2.6.6",
     "vue-router": "^3.0.2",
     "vuex": "^3.1.0",

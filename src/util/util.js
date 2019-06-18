@@ -95,7 +95,7 @@ export const filterProps = (origin, target) => {
  * @returns void 
 */
 export const downloadExcel = (response, defualtitle) => {
-    let b = new Blob([response],{type:"application/vnd.ms-excel;charset=utf-8"});
+    let b = new Blob([response],{type:"application/octet-stream;charset=utf-8"});
     const url = window.URL.createObjectURL(b);
     let link = document.createElement('a')
     link.style.display = 'none'
