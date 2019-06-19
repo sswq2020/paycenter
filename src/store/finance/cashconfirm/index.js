@@ -5,7 +5,7 @@ import { requestParamsByTimeRange,requestParamsByStatus, Message_fail, failHtml 
 import _ from 'lodash'
 const defaultlistParams = {
     settlementNo: '', // 业务单号
-    payerBankName: '', // 转出账户名
+    payerAccountId: '', // 转出账户id
     payeeAccountName: '', // 转入账户名
     payeeBankNo: '', // 转入账户号
     appCode: '', //数据来源

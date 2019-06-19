@@ -88,7 +88,14 @@
         <div class="form-item" v-show="toggle">
           <label>转出账户名</label>
           <div class="form-control">
-            <el-input v-model="listParams.payerAccountName" placeholder="请输入转出账户名" size="small"></el-input>
+            <el-select v-model="listParams.payerAccountId" placeholder="请选择转出账户名" size="small">
+            <el-option
+              v-for="item in accountList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
           </div>
         </div>
       </el-collapse-transition>
@@ -195,7 +202,7 @@
 </template>
 <script>
 import { mapActions, mapState,mapMutations } from "vuex";
-import { timerMixin, dictMixin, shrinkMixin } from "@/common/mixin.js";
+import { timerMixin, dictMixin, shrinkMixin,accountMixin } from "@/common/mixin.js";
 import { judgeAuth } from "@/util/util.js";
 import DICT from "@/util/dict.js";
 import heltable from "@/components/hl_table";
@@ -260,7 +267,7 @@ const defaulttableHeader = [
 ];
 export default {
   name: "review",
-  mixins: [timerMixin, dictMixin, shrinkMixin],
+  mixins: [timerMixin, dictMixin, shrinkMixin,accountMixin],
   components: {
     heltable,
     hlBreadcrumb,

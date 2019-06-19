@@ -8,7 +8,7 @@ import moment from 'moment'
 const defaultlistParams = {
     creditNo: '', // 交易凭证号
     settlementNo: '', // 业务单号
-    payerBankName: '', // 转出账户名
+    payerAccountId: '', // 转出账户id
     payeeBankNo: '', // 转入账户号
     appCode: '', //数据来源
     status: [], //状态
