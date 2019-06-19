@@ -82,7 +82,7 @@
         <div class="form-item" v-show="toggle">
           <label>转出账户名</label>
           <div class="form-control">
-            <el-input v-model="listParams.payerBankName" placeholder="请输入" size="small"></el-input>
+            <el-input v-model="listParams.payerAccountName" placeholder="请输入" size="small"></el-input>
           </div>
         </div>
       </el-collapse-transition>
