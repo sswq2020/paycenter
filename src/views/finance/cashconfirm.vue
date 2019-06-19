@@ -188,7 +188,7 @@
             class="activate"
             v-loading.fullscreen.lock="ismanualConfirmLoading"
             v-if="manualAuth&&listData.list[scope.$index].status == manual"
-            @click="openManualdialog(listData.list[scope.$index].id)"
+            @click="openManualdialog(listData.list[scope.$index])"
           >人工确认</el-button>
         </template>
       </el-table-column>
@@ -238,7 +238,7 @@
         元,确定要{{titles[3]}}吗？
       </div>
     </financedialog>
-    <manualdialog ref="manualdialog" @confirm="manualdConfirm"></manualdialog>
+    <manualdialog ref="manualdialog" @confirm="manualdConfirm" :creditNo="superCreditNo"></manualdialog>
     <carddialog ref="carddialog" :data="auditInstances"></carddialog>
   </div>
 </template>
@@ -339,6 +339,8 @@ export default {
       selectedItems: [],
       titles: ["作废", "确认转账", "刷新", "重新支付"],
       manual: MANUAL_STATUS,
+      /**人工确认父组件传递的凭证号*/
+      superCreditNo: "",
       /***隐藏*/
       showup: false,
       DICT: DICT
@@ -437,8 +439,9 @@ export default {
     selectChange(selection) {
       this.selectedItems = selection.slice();
     },
-    openManualdialog(id) {
-      this.setManualId(id);
+    openManualdialog(obj) {
+      this.superCreditNo = obj.creditNo || "";
+      this.setManualId(obj.id);
       this.$refs.manualdialog.open();
     },
     openCarddialogdialog(auditInstances) {

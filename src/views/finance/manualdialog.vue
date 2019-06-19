@@ -53,6 +53,12 @@ const RULE2 = {
 };
 export default {
   name: "manualdialog",
+  props:{
+    creditNo:{
+      type: String,
+      default: ""      
+    }
+  },
   data() {
     return {
       options: [
@@ -100,6 +106,8 @@ export default {
         setTimeout(()=>{
            this.$refs.ruleForm.resetFields();
         },50)
+      }else {
+        this.form.creditNo = this.creditNo;
       }
     }
   }  
