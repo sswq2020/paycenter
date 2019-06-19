@@ -59,4 +59,13 @@ export function Message_fail(fn,data=[]){
          closeOnClickModal:false
      });
  } 
+
+ export const handleBank_toArray_ = obj => {
+     return Object.values(obj).map(item => {
+         return {
+             value: item.accountId,
+             label: item.shortName
+         }
+     })
+ }
  

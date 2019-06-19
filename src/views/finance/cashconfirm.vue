@@ -105,7 +105,14 @@
         <div class="form-item" v-show="toggle">
           <label>转出账户名</label>
           <div class="form-control">
-            <el-input v-model="listParams.payerBankName" placeholder="请输入" size="small"></el-input>
+            <el-select v-model="listParams.payerAccountId" placeholder="请选择转出账户名" size="small">
+            <el-option
+              v-for="item in accountList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
           </div>
         </div>
       </el-collapse-transition>
@@ -188,7 +195,7 @@
             class="activate"
             v-loading.fullscreen.lock="ismanualConfirmLoading"
             v-if="manualAuth&&listData.list[scope.$index].status == manual"
-            @click="openManualdialog(listData.list[scope.$index].id)"
+            @click="openManualdialog(listData.list[scope.$index])"
           >人工确认</el-button>
         </template>
       </el-table-column>
@@ -238,7 +245,7 @@
         元,确定要{{titles[3]}}吗？
       </div>
     </financedialog>
-    <manualdialog ref="manualdialog" @confirm="manualdConfirm"></manualdialog>
+    <manualdialog ref="manualdialog" @confirm="manualdConfirm" :creditNo="superCreditNo"></manualdialog>
     <carddialog ref="carddialog" :data="auditInstances"></carddialog>
   </div>
 </template>
@@ -246,7 +253,7 @@
 <script>
 import NP from "number-precision";
 import { mapActions, mapState, mapMutations } from "vuex";
-import { timerMixin, dictMixin, shrinkMixin } from "@/common/mixin.js";
+import { timerMixin, dictMixin, shrinkMixin,accountMixin } from "@/common/mixin.js";
 import { judgeAuth } from "@/util/util.js";
 import DICT from "@/util/dict.js";
 import heltable from "@/components/hl_table";
@@ -314,7 +321,7 @@ const defaulttableHeader = [
 ];
 export default {
   name: "cashconfirm",
-  mixins: [timerMixin, dictMixin, shrinkMixin],
+  mixins: [timerMixin, dictMixin, shrinkMixin,accountMixin],
   components: {
     heltable,
     hlBreadcrumb,
@@ -339,6 +346,8 @@ export default {
       selectedItems: [],
       titles: ["作废", "确认转账", "刷新", "重新支付"],
       manual: MANUAL_STATUS,
+      /**人工确认父组件传递的凭证号*/
+      superCreditNo: "",
       /***隐藏*/
       showup: false,
       DICT: DICT
@@ -437,8 +446,9 @@ export default {
     selectChange(selection) {
       this.selectedItems = selection.slice();
     },
-    openManualdialog(id) {
-      this.setManualId(id);
+    openManualdialog(obj) {
+      this.superCreditNo = obj.creditNo || "";
+      this.setManualId(obj.id);
       this.$refs.manualdialog.open();
     },
     openCarddialogdialog(auditInstances) {

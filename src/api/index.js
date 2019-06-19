@@ -331,6 +331,14 @@ export default {
     /**
      * @author sswq
      * @param params
+     * @description 查询公司账户所有信息
+     * */
+    getbankAccountAll(params) {
+        return fetch(financeURL + '/web/bankAccount/all/hlet', params,"get")
+    },
+    /**
+     * @author sswq
+     * @param params
      * @description 银行转账财务审核列表
      * */
     getReviewList(params) {

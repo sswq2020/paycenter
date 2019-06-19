@@ -18,23 +18,23 @@ const body = {
 }
 
 const body_fail = {
-    "code":"HL070002000",
-    "data":{
-        "failMap":{
-            "key1":"系统错误1",
-            "key2":"系统错误2",
-            "key3":"系统错误3",
-            "key4":"系统错误4",
+    "code": "HL070002000",
+    "data": {
+        "failMap": {
+            "key1": "系统错误1",
+            "key2": "系统错误2",
+            "key3": "系统错误3",
+            "key4": "系统错误4",
         },
-        successList:[],
+        successList: [],
     },
-    "mesg":"系统错误"
- }
+    "mesg": "系统错误"
+}
 
 
 
 const StatusList = {
-    "1": "付款成功",
+    "1": "转账成功",
     "2": "财务待审核",
     "3": "财务审核不通过",
     "4": "出纳待审核",
@@ -151,39 +151,35 @@ const detailList = {
 
 const mockRouterMap = {
     [hostList.default]: [
+        // #region  查询公司账户所有信息
         {
             isMock: IS_MOCK,
             methods: 'get',
-            router: 'system/manage/role/list',
-            result(params) {
+            router: 'payacc/web/bankAccount/all/hlet',
+            result() {
                 return {
                     ...body,
-                    ...{
-                        data: {
-                            'list|1-10': [roleList],
-                            "paginator": {
-                                "currentPage": params.page,
-                                "pageSize": params.pageSize,
-                                "totalCount": 1000,
-                                "totalPage": 1000 / params.pageSize
-                            },
-                            singleCount: 45567453.23,
-                            sumCount: 192567453.23
+                    "data": {
+                        "162865482049781760": {
+                            "accName": "惠龙易通国际物流股份有限公司涟水分公司",
+                            "accNo": "32050172763600001605",
+                            "accountId": "162865482049781760",
+                            "bankName": "建设银行",
+                            "branchName": "建设银行",
+                            "createdBy": "system",
+                            "createdTime": "2019-05-23 08:22:14.0",
+                            "shortName": "涟水1605",
+                            "ubankNo": "105100000017",
+                            "updatedBy": "system",
+                            "updatedTime": "2019-05-23 10:07:39.0",
+                            "version": "1"
                         },
                     },
                 };
             }
         },
-        {
-            isMock: IS_MOCK,
-            methods: 'post',
-            router: 'system/manage/role/status',
-            result(params) {
-                return {
-                    ...body
-                };
-            }
-        },
+        // #endregion 
+
         // #region  银行转账财务审核列表
         {
             isMock: IS_MOCK,
@@ -216,7 +212,7 @@ const mockRouterMap = {
             methods: 'post',
             router: 'payacc/web/settlementPayOrder/audit/finance',
             result(params) {
-                return  Math.random() > 0.5 ? body : body_fail
+                return Math.random() > 0.5 ? body : body_fail
             }
         },
         // #endregion 
@@ -253,7 +249,7 @@ const mockRouterMap = {
             methods: 'post',
             router: 'payacc/web/settlementPayOrder/audit/cashier',
             result(params) {
-                return Math.random() > 0.5 ? body : body_fail               
+                return Math.random() > 0.5 ? body : body_fail
             }
         },
         // #endregion         
@@ -264,7 +260,7 @@ const mockRouterMap = {
             methods: 'get',
             router: 'payacc/web/settlementPayOrder/operate/refreshStatus',
             result(params) {
-              return  Math.random() > 0.5 ? body : body_fail
+                return Math.random() > 0.5 ? body : body_fail
             }
         },
         // #endregion 
@@ -275,7 +271,7 @@ const mockRouterMap = {
             methods: 'get',
             router: 'payacc/web/settlementPayOrder/operate/rePay',
             result() {
-                return  Math.random() > 0.5 ? body : body_fail
+                return Math.random() > 0.5 ? body : body_fail
             }
         },
         // #endregion 
