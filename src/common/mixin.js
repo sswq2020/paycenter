@@ -1,5 +1,5 @@
 import api from '@/api'
-import { _toArray_ } from './util'
+import { _toArray_,handleBank_toArray_} from './util'
 import DICT from '@/util/dict.js'
 export const timerMixin = {
     data() {
@@ -127,4 +127,27 @@ export const shrinkMixin = {
         }
     }
 
+}
+
+export const accountMixin = {
+    data() {
+        return {
+            accountList: [],
+        }
+    },
+    methods: {
+        async _getbankAccAll() {
+            const response = await api.getbankAccountAll()
+            switch (response.code) {
+                case DICT.SUCCESS:
+                    this.accountList = handleBank_toArray_(response.data)
+                    break;
+                default:
+                    break;
+            }
+        }
+    },
+    created() {
+        this._getbankAccAll()
+    }    
 }
