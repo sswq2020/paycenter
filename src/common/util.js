@@ -69,3 +69,15 @@ export function Message_fail(fn,data=[]){
      })
  }
  
+ /* @description 将字典对象转换成相应的SELECT数据源
+ * @param {Object} DictObj 字典对象
+ * @returns {Array}
+ * */
+export const DICT_SELECT_ARR = (DictObj) => {
+    return Object.keys(DictObj).map((item) => {
+      return {
+          value: item,
+          label: DictObj[item]
+      };
+    });
+  };

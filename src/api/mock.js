@@ -82,6 +82,8 @@ const reviewList = {
     "status": "@PICK(2,3)", // 状态 int
     "createdTime": "@DATE('yyyy-MM-dd HH:mm:ss')",
     "returnMsg": '@CTITLE(5,10)',
+    "callbackStatus":"@PICK(0,1,2)",
+    "callbackResult":"执行请求失败 返回信息为==回调发生异常 异常信息为[Connect to 127.0.0.1:8080 [/127.0.0.1] failed: Connection refused (Connection refused)]执行请求失败 返回信息为==回调发生异常 异常信息为[Connect to 127.0.0.1:8080 [/127.0.0.1] failed: Connection refused (Connection refused)]执行请求失败 返回信息为",
     "auditInstances": [{     // 审核信息,包含审核人,备注,审核时间,审核结果
         auditorName: "@CNAME()",
         auditTime: '@DATE("yyyy-MM-dd HH:mm:ss")',

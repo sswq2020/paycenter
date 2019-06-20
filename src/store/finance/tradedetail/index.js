@@ -11,6 +11,7 @@ const defaultlistParams = {
     payerAccountId: '', // 转出账户id
     payeeBankNo: '', // 转入账户号
     appCode: '', //数据来源
+    notifyStatus: null, // 回调同步状态
     status: [], //状态
     timeRange: '', // 时间范围
     page: 1,
@@ -96,7 +97,8 @@ const store = {
         async getListData({ commit, state }) {
             const { listParams } = state;
             const { timeRange, status } = listParams;
-            const _reqParams_ = requestParamsByTimeRange(listParams, timeRange, ...EXTRA_PARAMS_KEYS)
+            let _reqParams_ = requestParamsByTimeRange(listParams, timeRange, ...EXTRA_PARAMS_KEYS)
+            _reqParams_.notifyStatus = _reqParams_.notifyStatus ? Number(_reqParams_.notifyStatus) : null;
             const reqParams = requestParamsByStatus(_reqParams_, status)
             commit("overrideStateProps", { isListDataLoading: true });
             const response = await api.tradeDetail(reqParams);

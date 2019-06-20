@@ -80,6 +80,21 @@
       </div>
       <el-collapse-transition>
         <div class="form-item" v-show="toggle">
+          <label>同步状态</label>
+          <div class="form-control">
+            <el-select v-model="listParams.notifyStatus" placeholder="回调同步状态" size="small">
+            <el-option
+              v-for="item in notifyStatusList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+          </div>
+        </div>
+      </el-collapse-transition>      
+      <el-collapse-transition>
+        <div class="form-item" v-show="toggle">
           <label>转出账户名</label>
           <div class="form-control">
             <el-select v-model="listParams.payerAccountId" placeholder="请选择转出账户名" size="small">
@@ -158,7 +173,7 @@
       >
         <template slot-scope="scope">
           <span
-            v-if="item.prop !='status' && item.prop !='appCode'"
+            v-if="item.prop !='status' && item.prop !='appCode' && item.prop !='callbackStatus'"
           >{{listData.list[scope.$index][item.prop]}}</span>
           <span
             v-if="item.prop == 'status'"
@@ -166,6 +181,13 @@
           <span
             v-if="item.prop == 'appCode'"
           >{{DICT.APP_INFO[listData.list[scope.$index].appCode] || "-"}}</span>
+
+          <div v-if="item.prop == 'callbackStatus'">
+            <el-tooltip :content="listData.list[scope.$index].callbackResult" placement="bottom">
+              <el-button type="text">{{DICT.NOTIFY_STATUS[listData.list[scope.$index].callbackStatus]}}</el-button>
+            </el-tooltip>
+          </div>
+
         </template>
       </el-table-column>
     </heltable>
@@ -177,6 +199,7 @@ import NP from "number-precision";
 import { mapActions, mapState } from "vuex";
 import { timerMixin, dictMixin, shrinkMixin,accountMixin } from "@/common/mixin.js";
 import { judgeAuth } from "@/util/util.js";
+import {DICT_SELECT_ARR} from "@/common/util.js";
 import DICT from "@/util/dict.js";
 import heltable from "@/components/hl_table";
 import hlBreadcrumb from "@/components/hl-breadcrumb";
@@ -235,6 +258,11 @@ const defaulttableHeader = [
     width: "180"
   },
   {
+    prop: "callbackStatus",
+    label: "同步状态",
+    width: "180"
+  },
+  {
     prop: "returnMsg",
     label: "备注",
     width: "180"
@@ -268,7 +296,8 @@ export default {
       title: "重新转账",
       /***隐藏*/
       showup: false,
-      DICT: DICT
+      DICT: DICT,
+      notifyStatusList: DICT_SELECT_ARR(DICT.NOTIFY_STATUS)
     };
   },
   computed: {
