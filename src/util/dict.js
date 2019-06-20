@@ -18,8 +18,7 @@ DICT.APP_INFO = {
 DICT.NOTIFY_STATUS  = {
     "0":'失败',
     "1":'成功',
-    "2":'同步中',
-    "3":'回调中'
+    "2":'同步中'
 }
 
 DICT.PAY_STATUS = {

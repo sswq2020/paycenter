@@ -97,7 +97,8 @@ const store = {
         async getListData({ commit, state }) {
             const { listParams } = state;
             const { timeRange, status } = listParams;
-            const _reqParams_ = requestParamsByTimeRange(listParams, timeRange, ...EXTRA_PARAMS_KEYS)
+            let _reqParams_ = requestParamsByTimeRange(listParams, timeRange, ...EXTRA_PARAMS_KEYS)
+            _reqParams_.notifyStatus = _reqParams_.notifyStatus ? Number(_reqParams_.notifyStatus) : null;
             const reqParams = requestParamsByStatus(_reqParams_, status)
             commit("overrideStateProps", { isListDataLoading: true });
             const response = await api.tradeDetail(reqParams);

@@ -182,11 +182,11 @@
             v-if="item.prop == 'appCode'"
           >{{DICT.APP_INFO[listData.list[scope.$index].appCode] || "-"}}</span>
 
-          <span v-if="item.prop == 'callbackStatus'">
-            <el-tooltip :content="listData.list[scope.$index].callbackResult" placement="top">
-              <el-button>listData.list[scope.$index].callbackStatus</el-button>
+          <div v-if="item.prop == 'callbackStatus'">
+            <el-tooltip :content="listData.list[scope.$index].callbackResult" placement="bottom">
+              <el-button type="text">{{DICT.NOTIFY_STATUS[listData.list[scope.$index].callbackStatus]}}</el-button>
             </el-tooltip>
-          </span>
+          </div>
 
         </template>
       </el-table-column>
