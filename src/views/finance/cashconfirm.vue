@@ -9,6 +9,7 @@
         @click="overrideStateProps({rePayVisible:true})"
         :disabled="!(authTransferFailItems.length > 0)"
         icon="el-icon-bank-card"
+        v-if="rePayment"
       >重新支付</el-button>
       <el-button
         class="hlB_buts"
@@ -338,6 +339,7 @@ export default {
       transfer: false,
       manualAuth: false,
       freshen: false,
+      rePayment:false,
       /**表格相关*/
       tableHeader: defaulttableHeader,
       showOverflowTooltip: true,
@@ -505,6 +507,7 @@ export default {
       this.transfer = judgeAuth("finance:cashconfirm:transfer");
       this.manualAuth = judgeAuth("finance:cashconfirm:manual");
       this.freshen = judgeAuth("finance:cashconfirm:freshen");
+      this.rePayment = judgeAuth("finance:cashconfirm:repay");
     }
   },
   mounted() {
