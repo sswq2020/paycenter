@@ -80,7 +80,7 @@
       </div>
       <el-collapse-transition>
         <div class="form-item" v-show="toggle">
-          <label>回调同步状态</label>
+          <label>同步状态</label>
           <div class="form-control">
             <el-select v-model="listParams.notifyStatus" placeholder="回调同步状态" size="small">
             <el-option
@@ -259,7 +259,7 @@ const defaulttableHeader = [
   },
   {
     prop: "callbackStatus",
-    label: "回调状态",
+    label: "同步状态",
     width: "180"
   },
   {
