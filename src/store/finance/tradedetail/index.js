@@ -11,6 +11,7 @@ const defaultlistParams = {
     payerAccountId: '', // 转出账户id
     payeeBankNo: '', // 转入账户号
     appCode: '', //数据来源
+    notifyStatus: null, // 回调同步状态
     status: [], //状态
     timeRange: '', // 时间范围
     page: 1,
