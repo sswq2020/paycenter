@@ -15,6 +15,13 @@ DICT.APP_INFO = {
     [DICT.BUSINESS_ONLINE_PLANT]:'电商平台'
 }
 
+DICT.NOTIFY_STATUS  = {
+    "0":'失败',
+    "1":'成功',
+    "2":'同步中',
+    "3":'回调中'
+}
+
 DICT.PAY_STATUS = {
     "1": "转账成功",
     "2": "财务待审核",
