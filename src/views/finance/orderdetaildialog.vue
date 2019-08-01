@@ -10,11 +10,11 @@
     >
       <el-table stylestripe border :data="curdata">
         <el-table-column
-          show-overflow-tooltip
-          align="center"
           :prop="item.prop"
           :width="item.width"
           :label="item.label"
+          :align="item.align || 'center'"
+          header-align="center"
           :key="index"
           v-for="(item,index) in tableHeader"
         >
@@ -51,7 +51,7 @@ const defaultAuditResultTableHeader = [
   {
     prop: "transDt",
     label: "交易日期",
-    width: "150"
+    width: "120"
   },  
   {
     prop: "applAmt",
@@ -61,7 +61,8 @@ const defaultAuditResultTableHeader = [
   {
     prop: "memo",
     label: "交易详情",
-    width: "650"
+    width: "639",
+    align:"left"
   }
 ];
 export default {
