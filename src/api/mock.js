@@ -151,6 +151,14 @@ const detailList = {
     balance: "@INTEGER(90000,2019690999)",// 余额
 }
 
+const getOrderDescList = {
+    "applAmt": "@float(200,999)", // 交易金额
+    "memberName": "@CNAME()",
+    "memo": "@CTITLE(20)",
+    "orderCode": "CYJY@INTEGER(2019690000,2019690999)",
+    "transDt": '@DATE("yyyy-MM-dd HH:mm:ss")'
+}
+
 const mockRouterMap = {
     [hostList.default]: [
         // #region  查询公司账户所有信息
@@ -431,6 +439,21 @@ const mockRouterMap = {
             }
         },
         // #endregion  
+
+        // #region  获取订单详情
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: 'payacc/web/settlementPayOrder/getOrderDesc',
+            result() {
+                return {
+                    ...body,
+                    'data|30-50':[getOrderDescList]
+                    
+                };
+            }
+        },
+        // #endregion          
 
 
         // #region  字典项

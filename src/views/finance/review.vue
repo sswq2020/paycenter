@@ -140,6 +140,15 @@
       @selection-change="selectChange"
       :loading="isListDataLoading"
     >
+      <el-table-column label="业务单号" align="center">
+        <template slot-scope="scope">
+          <el-button
+            type="text"
+            @click="setOrderDetailDialogOpen(listData.list[scope.$index])"
+          >{{listData.list[scope.$index].settlementNo}}</el-button>
+        </template>
+      </el-table-column>
+
       <el-table-column
         align="center"
         :prop="item.prop"
@@ -198,6 +207,12 @@
       </div>
     </financedialog>
     <carddialog ref="carddialog" :data="auditInstances"></carddialog>
+    <orderdetaildialog 
+      :title="title3"
+      :visible="orderdetailVisible"
+      :cancleCb="closeOrderDetailDialog"
+      :data="orderdetailData">
+    </orderdetaildialog>
   </div>
 </template>
 <script>
@@ -210,14 +225,10 @@ import hlBreadcrumb from "@/components/hl-breadcrumb";
 import showbanner from "./showbanner.vue";
 import financedialog from "./financedialog.vue";
 import carddialog from "./carddialog.vue";
+import orderdetaildialog from "./orderdetaildialog.vue";
 const ORDER_STATUS = [2, 3, 10]; // 状态只能是2,3,10
 const AUTH_OPTION_STATUS = 2;
 const defaulttableHeader = [
-  {
-    prop: "settlementNo",
-    label: "业务单号"
-    // width: "120"
-  },
   {
     prop: "fund",
     label: "款项"
@@ -273,7 +284,8 @@ export default {
     hlBreadcrumb,
     showbanner,
     financedialog,
-    carddialog
+    carddialog,
+    orderdetaildialog
   },
   data() {
     return {
@@ -288,6 +300,7 @@ export default {
       selectedItems: [],
       title1: "作废",
       title2: "审核通过",
+      title3:'交易详细',
       DICT: DICT
     };
   },
@@ -300,8 +313,12 @@ export default {
       "listData",
       "auditInstances",
       "batchAuditVisible",
-      "batchDeleteVisible"
+      "batchDeleteVisible",
     ]),
+    ...mapState("app", [
+      "orderdetailVisible",
+      "orderdetailData"
+    ]),    
     filterOrderStatus() {
       return this.payOrderStatusList.filter(item => {
         return ORDER_STATUS.includes(Number(item.value));
@@ -327,6 +344,10 @@ export default {
       "changePageSize",
       "batchAudit",
     ]),
+    ...mapActions("app", [
+      "openOrderDetailDialog",
+      "closeOrderDetailDialog"
+    ]),
     sizeChange(size) {
       this.changePageSize(size);
     },
@@ -349,6 +370,11 @@ export default {
     openCarddialogdialog(auditInstances) {
       this.setAuditInstances(auditInstances);
       this.$refs.carddialog.open();
+    },
+    setOrderDetailDialogOpen(item){
+      const {settlementNo,id} = item
+      this.title3 = `业务单号:${settlementNo}交易详细`;
+      this.openOrderDetailDialog({id})
     },
     _recision_(auditOpinion) {
       const ids = this.ids;

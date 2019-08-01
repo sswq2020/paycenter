@@ -461,6 +461,14 @@ export default {
     getBillDetail(params) {
         return fetch(financeURL + '/web/billDetail/getBillDetail', params)
     },
+    /**
+     * @author sswq
+     * @param params
+     * @description 获取订单详情
+     * */
+    getOrderDesc(params) {
+        return fetch(financeURL + '/web/settlementPayOrder/getOrderDesc', params,'get')
+    },
     // #endregion
 
     // #region  字典项

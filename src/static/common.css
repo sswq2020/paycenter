@@ -106,12 +106,12 @@
 }
 .el-table td,.el-table tr,.el-table th{
     padding: 0;
-    height: 34px !important ;
+    /* height: 34px !important ; */
     font-size: 12px;
 }
 .el-table .cell{
     /*line-height: 34px;*/
-    max-height: 34px !important;
+    /* max-height: 34px !important; */
     padding: 0;
 }
 .breadcrumb-container .btns img{

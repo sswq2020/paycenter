@@ -164,6 +164,17 @@
       @selection-change="selectChange"
       :loading="isListDataLoading"
     >
+      <el-table-column label="业务单号" align="center">
+        <template slot-scope="scope">
+          <el-button
+            type="text"
+            @click="setOrderDetailDialogOpen(listData.list[scope.$index])"
+          >{{listData.list[scope.$index].settlementNo}}</el-button>
+        </template>
+      </el-table-column>
+
+
+
       <el-table-column
         align="center"
         :prop="item.prop"
@@ -248,6 +259,12 @@
     </financedialog>
     <manualdialog ref="manualdialog" @confirm="manualdConfirm" :creditNo="superCreditNo"></manualdialog>
     <carddialog ref="carddialog" :data="auditInstances"></carddialog>
+        <orderdetaildialog 
+      :title="title3"
+      :visible="orderdetailVisible"
+      :cancleCb="closeOrderDetailDialog"
+      :data="orderdetailData">
+    </orderdetaildialog>
   </div>
 </template>
 
@@ -263,17 +280,13 @@ import financedialog from "./financedialog.vue";
 import manualdialog from "./manualdialog.vue";
 import carddialog from "./carddialog.vue";
 import showbanner from "./showbanner.vue";
+import orderdetaildialog from "./orderdetaildialog.vue";
 const ORDER_STATUS = [4, 5, 6, 7, 11, 12, 13, 14]; // 状态只能是4,5,6,7,11,12,13,14
 const AUTH_OPTION_STATUS = 4; // 批量作废或者转账的
 const AUTH_REFRESH_STATUS = [6, 7]; // 状态刷新的
 const MANUAL_STATUS = 7; // 人工确认必须是7
 const BANK_REQ_FAIL = 13; // 银行请求失败
 const defaulttableHeader = [
-  {
-    prop: "settlementNo",
-    label: "业务单号",
-    width: "180"
-  },
   {
     prop: "fund",
     label: "款项",
@@ -329,7 +342,8 @@ export default {
     financedialog,
     manualdialog,
     carddialog,
-    showbanner
+    showbanner,
+    orderdetaildialog
   },
   data() {
     return {
@@ -352,6 +366,7 @@ export default {
       superCreditNo: "",
       /***隐藏*/
       showup: false,
+      title3:'交易详细',      
       DICT: DICT
     };
   },
@@ -372,6 +387,10 @@ export default {
       "refreshStatusVisible",
       "rePayVisible"
     ]),
+    ...mapState("app", [
+      "orderdetailVisible",
+      "orderdetailData"
+    ]),      
     computedIcon() {
       return this.showup ? "el-icon-arrow-up" : "el-icon-arrow-down";
     },
@@ -430,6 +449,10 @@ export default {
       "rePay",
       "cashierConfirm"
     ]),
+    ...mapActions("app", [
+      "openOrderDetailDialog",
+      "closeOrderDetailDialog"
+    ]),       
     ...mapActions("tradedetail", ["getBalanceData"]),
     computedCount(arr = []) {
       let count = 0;
@@ -457,6 +480,11 @@ export default {
       this.setAuditInstances(auditInstances);
       this.$refs.carddialog.open();
     },
+    setOrderDetailDialogOpen(item){
+      const {settlementNo,id} = item
+      this.title3 = `业务单号:${settlementNo}交易详细`;
+      this.openOrderDetailDialog({id})
+    },      
     needfixed(fixed) {
       if (!fixed) {
         return false;
