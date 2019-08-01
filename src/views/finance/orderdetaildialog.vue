@@ -1,7 +1,7 @@
 <template>
   <div v-if="visible">
     <el-dialog
-      width="1000px"
+      width="1200px"
       :visible="visible"
       :center="true"
       @close="cancle"
@@ -13,6 +13,7 @@
           show-overflow-tooltip
           align="center"
           :prop="item.prop"
+          :width="item.width"
           :label="item.label"
           :key="index"
           v-for="(item,index) in tableHeader"
@@ -38,29 +39,29 @@
 <script>
 const defaultAuditResultTableHeader = [
   {
-    prop: "applAmt",
-    label: "交易金额",
-    width: "80"
+    prop: "orderCode",
+    label: "交易单号",
+    width: "150"
   },
   {
     prop: "memberName",
     label: "交易会员",
-    width: "100"
-  },
-  {
-    prop: "orderCode",
-    label: "操作记录ID",
     width: "120"
-  },
+  },  
   {
     prop: "transDt",
     label: "交易日期",
     width: "150"
+  },  
+  {
+    prop: "applAmt",
+    label: "交易金额",
+    width: "120"
   },
   {
     prop: "memo",
     label: "交易详情",
-    width: "150"
+    width: "650"
   }
 ];
 export default {
@@ -78,9 +79,9 @@ export default {
       type: Boolean,
       default: false
     },
-    title:{
+    title: {
       type: String,
-      default: ''
+      default: ""
     },
     cancleCb: {
       type: Function,
