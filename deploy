@@ -45,6 +45,19 @@ function testZipDeploy() {
   shell.echo('TECH_TEST_ZIP_ENV Deployed!');
 }
 
+function proZipDeploy() {
+  const zipName = `paycenter_pro_${now}.zip`;
+  shell.echo(splitLine);
+  shell.echo('production zip deploy:');
+  shell.echo(splitLine);
+  command('npm run pro');
+  shell.echo(`zip to ${zipName}`);
+  shell.echo(splitLine);
+  command(`zip -m -r -q ${zipName} ./dist`);
+  shell.echo('PRODUCTION_ZIP_ENV Deployed!');
+}
+
+
 
 if (options.t !== undefined) {
   testDeploy();
@@ -57,6 +70,11 @@ if (options.tz !== undefined) {
 }
 
 if (options.a !== undefined) {
+  return;
+}
+
+if (options.pz !== undefined) {
+  proZipDeploy();
   return;
 }
 
