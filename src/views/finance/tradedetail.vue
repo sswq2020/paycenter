@@ -162,6 +162,15 @@
       @selection-change="selectChange"
       :loading="isListDataLoading"
     >
+      <el-table-column label="业务单号" align="center">
+        <template slot-scope="scope">
+          <el-button
+            type="text"
+            @click="setOrderDetailDialogOpen(listData.list[scope.$index])"
+          >{{listData.list[scope.$index].settlementNo}}</el-button>
+        </template>
+      </el-table-column>
+
       <el-table-column
         align="center"
         :prop="item.prop"
@@ -191,6 +200,12 @@
         </template>
       </el-table-column>
     </heltable>
+    <orderdetaildialog 
+      :title="title3"
+      :visible="orderdetailVisible"
+      :cancleCb="closeOrderDetailDialog"
+      :data="orderdetailData">
+    </orderdetaildialog>
   </div>
 </template>
 
@@ -204,17 +219,13 @@ import DICT from "@/util/dict.js";
 import heltable from "@/components/hl_table";
 import hlBreadcrumb from "@/components/hl-breadcrumb";
 import showbanner from "./showbanner.vue";
+import orderdetaildialog from "./orderdetaildialog.vue";
 const ORDER_STATUS = [1, 8]; // 状态只能是1,8
 const AUTH_OPTION_STATUS = 8; // 重新转账只能是8
 const defaulttableHeader = [
   {
     prop: "creditNo",
     label: "交易凭证号",
-    width: "180"
-  },
-  {
-    prop: "settlementNo",
-    label: "业务单号",
     width: "180"
   },
   {
@@ -280,7 +291,8 @@ export default {
   components: {
     heltable,
     hlBreadcrumb,
-    showbanner 
+    showbanner,
+    orderdetaildialog
   },
   data() {
     return {
@@ -294,6 +306,7 @@ export default {
       /*多选的row*/
       selectedItems: [],
       title: "重新转账",
+      title3:'交易详细',
       /***隐藏*/
       showup: false,
       DICT: DICT,
@@ -310,6 +323,10 @@ export default {
       "listData",
       "balanceList"
     ]),
+    ...mapState("app", [
+      "orderdetailVisible",
+      "orderdetailData"
+    ]),        
     computedIcon() {
       return this.showup ? "el-icon-arrow-up" : "el-icon-arrow-down";
     },
@@ -347,6 +364,10 @@ export default {
       "manualSync",
       "download"
     ]),
+    ...mapActions("app", [
+      "openOrderDetailDialog",
+      "closeOrderDetailDialog"
+    ]),    
     sizeChange(size) {
       this.changePageSize(size);
     },
@@ -356,6 +377,11 @@ export default {
     selectChange(selection) {
       this.selectedItems = selection.slice();
     },
+    setOrderDetailDialogOpen(item){
+      const {settlementNo,id} = item
+      this.title3 = `业务单号:${settlementNo}交易详细`;
+      this.openOrderDetailDialog({id})
+    },    
     open() {
       this.$refs.dialog.open();
     },
