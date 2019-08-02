@@ -164,7 +164,7 @@
       @selection-change="selectChange"
       :loading="isListDataLoading"
     >
-      <el-table-column label="业务单号" align="center">
+      <el-table-column label="业务单号" align="center" width="160">
         <template slot-scope="scope">
           <el-button
             type="text"
