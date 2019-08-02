@@ -19,7 +19,7 @@ argv.forEach(row => {
 
 
 const splitLine = '==================================';
-const now = new Date();
+const now = new Date().getTime();
 
 function testDeploy() {
   shell.echo(splitLine);
