@@ -278,7 +278,9 @@ export default {
       padding: 5px 0px;
       text-align: center;
       font-size: 14px;
-      border-radius: 5px;
+      border-radius: 0px 0px 7px 7px;
+      background: #f4f4f4;
+      box-shadow: 5px 5px 5px #888888;
       cursor:pointer;
       .op {
         flex: 1;
