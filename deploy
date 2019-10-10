@@ -28,7 +28,7 @@ function testDeploy() {
   command('npm run test');
   shell.echo('copy to test server');
   shell.echo(splitLine);
-  command('scp -r dist/*  root@10.20.129.28:/home/finance-test/dist');
+  command('scp -r dist/*  root@10.20.129.28:/home/miracle/finance-test/dist');
   command('rm ./dist -rf');
   shell.echo('TECH_TEST_ENV Deployed!');
 }
