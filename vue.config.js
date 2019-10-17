@@ -28,6 +28,11 @@ module.exports = {
             }
         }
     },
+    configureWebpack: {
+		externals: {
+			hlet: 'hlet'
+		}
+	},    
     lintOnSave: false,
     chainWebpack: config => {
         if (process.env.NODE_ENV === 'test') {
