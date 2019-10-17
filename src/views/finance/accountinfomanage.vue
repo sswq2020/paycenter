@@ -1,5 +1,5 @@
 <template>
-  <div class="container single-page">
+  <div class="container single-page" style="height:100%">
     <hlBreadcrumb :data="breadTitle">
       <el-button class="hlB_buts" v-if="addAccount"  size="small" icon="el-icon-plus" @click="add">新增</el-button>
     </hlBreadcrumb>
@@ -47,12 +47,13 @@
     <div class="page-wrapper">
       <el-pagination
         class="page"
+        background
         @size-change="sizeChange"
         @current-change="pageChange"
         :current-page="listParams.page"
         :page-sizes="[5,10]"
         :page-size="listParams.pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="total, prev, pager, next,sizes, jumper"
         :total="listData.paginator.totalCount"
       ></el-pagination>
     </div>
@@ -292,17 +293,16 @@ export default {
   }
 }
 .page-wrapper {
-  height: 70px;
+  height: 50px;
   box-sizing: border-box;
   background-color: #f6f8fa;
   position: relative;
-  padding: 20px;
-  padding-bottom: 20px;
+  margin: 0px 20px 20px 20px;
   .page {
     display: block;
     position: absolute;
     top: 10px;
-    right: 20px;
+    left: 10px;
   }
 }
 
