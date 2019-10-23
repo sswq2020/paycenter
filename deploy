@@ -48,12 +48,18 @@ function testZipDeploy() {
 function proZipDeploy() {
   const zipName = `paycenter_pro_${now}.zip`;
   shell.echo(splitLine);
+  shell.echo('Start Shift Pro_Env URL');
+  shell.echo(splitLine);   
+  command('npm run append');
+  shell.echo('End Shift Pro_Env URL');
+  shell.echo(splitLine);    
   shell.echo('production zip deploy:');
   shell.echo(splitLine);
   command('npm run pro');
   shell.echo(`zip to ${zipName}`);
   shell.echo(splitLine);
   command(`zip -m -r -q ${zipName} ./dist`);
+  command('git checkout public/index.html');
   shell.echo('PRODUCTION_ZIP_ENV Deployed!');
 }
 
