@@ -25,7 +25,7 @@
         type="index"
         fixed="left"
         label="序号"
-        width="40"
+        width="55"
         align="center"
       ></el-table-column>
 
@@ -34,6 +34,7 @@
     <div class="container">
       <el-pagination
         class="page"
+        background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage"
@@ -48,7 +49,7 @@
 
 <script>
 import $ from "jquery";
-import { _debounce } from "@/common/util";
+import _ from 'lodash'
 import { setTimeout } from 'timers';
 export default {
   name: "hl-table",
@@ -99,7 +100,7 @@ export default {
       default: 1
     },
     layout: {
-      default: "total, sizes, prev, pager, next, jumper"
+      default: "total, prev, pager, next,sizes, jumper"
     },
     autoHeigit: {
       type: Boolean,
@@ -161,9 +162,9 @@ export default {
        this.computedTableHeight();
     },100)
 
-    $(window).bind("resize", _debounce(() => {
+    $(window).bind("resize", _.throttle(() => {
       this.computedTableHeight();
-    }, 100));
+    }, 400));
   },
   destroyed () {
     $(window).off("resize");
@@ -184,7 +185,7 @@ export default {
     display: block;
     position: absolute;
     top: 10px;
-    right: 10px;
+    left: 10px;
   }
 }
 </style>

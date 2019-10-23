@@ -1,5 +1,9 @@
 console.log('环境--------' + process.env.NODE_ENV)
+const path = require('path')
 const Time = new Date().getTime();
+function resolve(dir){
+    return path.resolve(__dirname,dir)
+}
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production'
         ? '/'
@@ -24,10 +28,21 @@ module.exports = {
             }
         }
     },
+    configureWebpack: {
+		externals: {
+			hlet: 'hlet'
+		}
+	},    
     lintOnSave: false,
     chainWebpack: config => {
-        if(process.env.NODE_ENV === 'test'){
+        if (process.env.NODE_ENV === 'test') {
             config.output.filename(`[name].${Time}.[hash].js`).end();
         }
-    }
+        config.resolve.alias.set("@", resolve("src"));
+        config.resolve.alias.set("components", resolve("src/components"));
+        config.resolve.alias.set("common", resolve("src/common"));
+        config.resolve.alias.set("views", resolve("src/views"));
+        config.resolve.alias.set("api", resolve("src/api"))
+        config.resolve.alias.set("util", resolve("src/util"))
+    },
 }

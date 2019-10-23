@@ -5,17 +5,18 @@ import numFormatter from 'numb-form';
 import './assets/styles/reset.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueCropper from 'vue-cropper'
-import Hletong from 'hletong-ui'
-import 'hletong-ui/lib/hletong-ui.css'
+
+
 import './static/reset.css';
 import './static/common.css';
 import {router} from './router'
 import store from './store'
 import api from '@/api'
+import hlet from 'hlet'
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
-Vue.use(Hletong);
+Vue.use(hlet);
 Vue.use(VueCropper);
 Vue.prototype.$api = api;
 Vue.prototype.$numFormatter = (n=0) => numFormatter(n)
