@@ -213,7 +213,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   padding: 30px 15px;
-  height: calc(100% - 120px - 70px);
+  height: calc(100% - 120px - 54px);
   overflow: hidden;
   flex-wrap: wrap;
   .bankcard {
@@ -293,7 +293,7 @@ export default {
   }
 }
 .page-wrapper {
-  height: 50px;
+  height: 34px;
   box-sizing: border-box;
   background-color: #f6f8fa;
   position: relative;
@@ -301,8 +301,8 @@ export default {
   .page {
     display: block;
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 1px;
+    right: 10px;
   }
 }
 
