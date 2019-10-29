@@ -185,7 +185,7 @@ export default {
     display: block;
     position: absolute;
     top: 1px;
-    left: 10px;
+    right: 10px;
   }
 }
 </style>
