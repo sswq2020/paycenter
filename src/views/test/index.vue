@@ -21,7 +21,10 @@
               </div>
             </div>
             <div class="card-income">
-              <span class="money">{{item.income}}</span>
+              <div class="money">
+                {{item.income}}
+                <span style="font-size:16px;margin-left:5px; color:#333333;">元</span>
+              </div>
               <div class="mark">
                 <div class="icon-mark income">收入</div>
               </div>
@@ -47,22 +50,23 @@
         </div>
       </div>
     </div>
-    <div class="middle">
+    <div class="middle" v-show="cashconfirm">
       <span class="title">
         <i class="icon icon5"></i>待办事项
       </span>
       <span class="title">
         待付笔数:
-        <span class="number">136</span>
+        <span class="number">{{totalCount}}</span>
       </span>
       <span class="title">
         待付金额:
-        <span class="number">5432432234</span>
+        <span class="number">￥{{countTotalAmount}}</span>
       </span>
     </div>
     <div class="tubiao">
       <div class="title">
-        <i class="icon icon6"></i><span class="mark">近一月收入支出情况</span>
+        <i class="icon icon6"></i>
+        <span class="mark">近一月收入支出情况</span>
       </div>
       <ve-line
         class="custom-class"
@@ -78,9 +82,11 @@
   </div>
 </template>
 
-<script>               
+<script>
+import { mapState} from "vuex";
+import Dict from "@/util/dict.js";
 const ChartData = {
-  columns: ["日期", "收入", "支出","差值"],
+  columns: ["日期", "收入", "支出", "差值"],
   rows: [
     { 日期: "2019-09-26", 收入: 1393, 支出: 2145, 差值: 242 },
     { 日期: "2019-09-27", 收入: 1530, 支出: 2045, 差值: 611 },
@@ -118,19 +124,24 @@ const ChartData = {
 export default {
   name: "test",
   data() {
-    this.chartColors = ["#F85757", "#55BB58" , "#00ABFF"];
+    this.chartColors = ["#F85757", "#55BB58", "#00ABFF"];
     this.title = {
       textAlign: "left",
       text: "单位:元",
       textStyle: {
-        fontSize: 16,
+        fontSize: 12,
         fontWeight: "normal"
       }
     };
 
     return {
+      // 权限
+      countTotalAmount: "暂无",
+      totalCount: "暂无",
+      cashconfirm: false,
+      
       loading: false,
-      dataEmpty:true,
+      dataEmpty: true,
       chartData: Object.create(null),
       chartSettings: {
         // yAxisName: ["单位:  万元"]
@@ -160,7 +171,26 @@ export default {
       ]
     };
   },
-  methods: {},
+  computed:{
+    ...mapState("app",["globelPermissionsAuth"])
+  },
+  methods: {
+    async _getCashList() {
+      const res = await this.$api.getCashList({ page: 1, pageSize: 10 });
+      switch (res.code) {
+        case Dict.SUCCESS:
+          this.countTotalAmount = res.data.countTotalAmount;
+          this.totalCount = res.data.paginator.totalCount;
+          break;
+        default:
+          this.$messageError(res.mesg);
+          break;
+      }
+    },
+    perm() {
+      this.cashconfirm = this.globelPermissionsAuth.includes("finance:cashconfirm");
+    }
+  },
   mounted() {
     this.chartExtend = {
       xAxis: {
@@ -179,13 +209,20 @@ export default {
         return v;
       }
     };
-
     this.loading = true;
     setTimeout(() => {
       this.chartData = ChartData;
       this.loading = false;
       this.dataEmpty = false;
     }, 3000);
+    this.perm();
+  },
+  watch: {
+    cashconfirm(newV) {
+      if (newV) {
+        this._getCashList();
+      }
+    }
   }
 };
 </script>
@@ -206,7 +243,7 @@ export default {
       width: 1275px;
       display: inline-block;
       background-color: #fff;
-      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
       .title {
         padding-left: 20px;
         height: 49px;
@@ -233,7 +270,7 @@ export default {
           height: 196px;
           border-bottom-right-radius: 4px;
           border-bottom-left-radius: 4px;
-          box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
           &:first-child {
             margin-left: 20px;
             margin-right: 8px;
@@ -306,7 +343,7 @@ export default {
       margin-left: 20px;
       display: inline-block;
       background-color: #fff;
-      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
       .title {
         padding-left: 20px;
         height: 49px;
@@ -329,7 +366,7 @@ export default {
         box-sizing: border-box;
         height: 236px;
         padding: 20px;
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
         .half {
           flex: 1;
           height: 196px;
@@ -371,13 +408,13 @@ export default {
     }
   }
   .middle {
-    margin: 15px 0px;
+    margin: 15px 0px 0px 0px;
     height: 60px;
     line-height: 60px;
     padding-left: 20px;
     background-color: #fff;
     font-size: 0px;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     .title {
       display: inline-block;
       font-size: 14px;
@@ -388,6 +425,7 @@ export default {
         color: #3c8bff;
         letter-spacing: 1.23px;
         margin-left: 10px;
+        font-weight: 600;
       }
       .icon {
         display: inline-block;
@@ -402,17 +440,19 @@ export default {
     }
   }
   .tubiao {
+    margin: 15px 0px 0px 0px;
     background-color: #fff;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+    border-radius: 2px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     .title {
-      padding-left:20px;
+      padding-left: 20px;
       box-sizing: border-box;
       height: 50px;
       line-height: 50px;
       border-bottom: 1px solid #dedede;
-      font-size:0px;
-      .mark{
-        font-size:14px;
+      font-size: 0px;
+      .mark {
+        font-size: 14px;
         vertical-align: middle;
       }
       .icon {

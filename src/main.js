@@ -33,6 +33,19 @@ Vue.use(hlet);
 Vue.use(VueCropper);
 Vue.prototype.$api = api;
 Vue.prototype.$numFormatter = (n=0) => numFormatter(n)
+
+Vue.prototype.$messageError = content => Vue.prototype.$message({
+  message: content,
+  type: 'error',
+  duration: 2000
+});
+
+Vue.prototype.$messageSuccess = content => Vue.prototype.$message({
+  message: content,
+  type: 'success',
+  duration: 5000
+});
+
 //将app挂载到window上面，可以使用router的方法和一些弹窗效果。
 window.VueApp = new Vue({
   router,
