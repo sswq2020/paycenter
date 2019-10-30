@@ -5,7 +5,7 @@
 </template>
 
 <script>
-	const SystemId = process.env.NODE_ENV === 'production' ? "166948708439556096": "153907405736902656"
+    import {SystemId} from "common/env.js"
 	export default {
 		name:'Main',
 		data(){
