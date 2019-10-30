@@ -1,13 +1,15 @@
 <template>
   <div class="container single-page">
-    <hlBreadcrumb :data="breadTitle">
+    <HletongBreadcrumb :data="breadTitle">
       <el-button 
-        class="hlB_buts" 
+        class="text-btn" 
+        plain 
+        type="primary"         
         size="small"
         :loading="isFileExportLoading"
         @click="getFile" 
         icon="el-icon-download">批量导出</el-button>
-    </hlBreadcrumb>
+    </HletongBreadcrumb>
     <div class="banner-wrap">
       <showbanner>
         <div class="colum">
@@ -70,7 +72,6 @@
 import { mapActions, mapState } from "vuex";
 import { dayMixin } from "@/common/mixin.js";
 import heltable from "@/components/hl_table";
-import hlBreadcrumb from "@/components/hl-breadcrumb";
 import showbanner from "./showbanner.vue";
 export const defaulttableHeader = [
   {
@@ -111,7 +112,6 @@ export default {
   name: "accountTradeDetails",
   mixins: [dayMixin],
   components: {
-    hlBreadcrumb,
     showbanner,
     heltable
   },

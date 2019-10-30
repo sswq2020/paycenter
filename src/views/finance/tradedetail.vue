@@ -1,22 +1,26 @@
 <template>
   <div class="container single-page">
-    <hlBreadcrumb :data="breadTitle">
+    <HletongBreadcrumb :data="breadTitle">
       <el-button 
-        class="hlB_buts" 
+        class="text-btn"
+        plain 
+        type="primary" 
         size="small"
         v-if="batchexport"
         :loading="isDownExcelLoading"
         @click="download" 
         icon="el-icon-download">批量导出</el-button>
       <el-button
-        class="hlB_buts"
+        class="text-btn"
+        plain 
+        type="primary"
         size="small"
         v-if="datasync"
         :loading="isSyncDataLoading"
         @click="manualSync"
         icon="el-icon-refresh"
       >手动数据同步</el-button>
-    </hlBreadcrumb>
+    </HletongBreadcrumb>
     <div class="banner-wrap">
       <showbanner>
         <div class="colum">预计支出(元):</div>
@@ -217,7 +221,6 @@ import { judgeAuth } from "@/util/util.js";
 import {DICT_SELECT_ARR} from "@/common/util.js";
 import DICT from "@/util/dict.js";
 import heltable from "@/components/hl_table";
-import hlBreadcrumb from "@/components/hl-breadcrumb";
 import showbanner from "./showbanner.vue";
 import orderdetaildialog from "./orderdetaildialog.vue";
 const ORDER_STATUS = [1, 8]; // 状态只能是1,8
@@ -290,7 +293,6 @@ export default {
   mixins: [timerMixin, dictMixin, shrinkMixin,accountMixin],
   components: {
     heltable,
-    hlBreadcrumb,
     showbanner,
     orderdetaildialog
   },
