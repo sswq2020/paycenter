@@ -296,7 +296,7 @@ import showbanner from "./showbanner.vue";
 import orderdetaildialog from "./orderdetaildialog.vue";
 const ORDER_STATUS = [4, 5, 6, 7, 11, 12, 13, 14]; // 状态只能是4,5,6,7,11,12,13,14
 const AUTH_OPTION_STATUS = 4; // 批量作废或者转账的
-const AUTH_REFRESH_STATUS = [6, 7]; // 状态刷新的
+const AUTH_REFRESH_STATUS = [6, 7, 14]; // 状态刷新的
 const MANUAL_STATUS = 7; // 人工确认必须是7
 const BANK_REQ_FAIL = 13; // 银行请求失败
 const defaulttableHeader = [
