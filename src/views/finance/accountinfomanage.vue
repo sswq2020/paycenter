@@ -1,8 +1,8 @@
 <template>
   <div class="container single-page" style="height:100%">
-    <hlBreadcrumb :data="breadTitle">
-      <el-button class="hlB_buts" v-if="addAccount"  size="small" icon="el-icon-plus" @click="add">新增</el-button>
-    </hlBreadcrumb>
+    <HletongBreadcrumb :data="breadTitle">
+      <el-button class="text-btn" plain type="primary" v-if="addAccount"  size="small" icon="el-icon-plus" @click="add">新增</el-button>
+    </HletongBreadcrumb>
     <div class="search-box">
       <div class="form-item">
         <label>账户简称</label>
@@ -74,14 +74,12 @@
 <script>
 import { mapActions, mapState, mapMutations } from "vuex";
 import { judgeAuth, filterProps} from "@/util/util.js";
-import hlBreadcrumb from "@/components/hl-breadcrumb";
 import bankdetaildialog from "./bankdetaildialog.vue";
 import accountdialog from "./accountdialog.vue";
 
 export default {
   name: "accountinfomanage",
   components: {
-    hlBreadcrumb,
     bankdetaildialog,
     accountdialog
   },
@@ -213,7 +211,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   padding: 30px 15px;
-  height: calc(100% - 120px - 70px);
+  height: calc(100% - 120px - 54px);
   overflow: hidden;
   flex-wrap: wrap;
   .bankcard {
@@ -293,7 +291,7 @@ export default {
   }
 }
 .page-wrapper {
-  height: 50px;
+  height: 34px;
   box-sizing: border-box;
   background-color: #f6f8fa;
   position: relative;
@@ -301,8 +299,8 @@ export default {
   .page {
     display: block;
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 1px;
+    right: 10px;
   }
 }
 

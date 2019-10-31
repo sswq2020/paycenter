@@ -1,9 +1,17 @@
 <template>
   <div class="container single-page">
-    <hlBreadcrumb :data="breadTitle">
-      <el-button class="hlB_buts" size="small" v-if="false" icon="el-icon-download">批量导出</el-button>
+    <HletongBreadcrumb :data="breadTitle">
+      <el-button class="text-btn" 
+        plain 
+        type="primary"  
+        size="small" 
+        v-if="false" 
+        icon="el-icon-download"
+      >批量导出</el-button>
       <el-button
-        class="hlB_buts"
+        class="text-btn"         
+        plain 
+        type="primary" 
         size="small"
         v-loading.fullscreen.lock="isrePayLoading"
         @click="overrideStateProps({rePayVisible:true})"
@@ -12,7 +20,9 @@
         v-if="rePayment"
       >重新支付</el-button>
       <el-button
-        class="hlB_buts"
+        class="text-btn"         
+        plain 
+        type="primary" 
         size="small"
         v-loading.fullscreen.lock="isrefreshStatusLoading"
         @click="overrideStateProps({refreshStatusVisible:true})"
@@ -21,7 +31,9 @@
         v-if="freshen"
       >刷新状态</el-button>
       <el-button
-        class="hlB_buts"
+        class="text-btn"         
+        plain 
+        type="primary" 
         size="small"
         v-loading.fullscreen.lock="isbatchAuditLoading"
         @click="overrideStateProps({batchAuditVisible:true})"
@@ -30,7 +42,9 @@
         v-if="transfer"
       >批量转账</el-button>
       <el-button
-        class="hlB_buts"
+        class="text-btn"         
+        plain 
+        type="primary" 
         size="small"
         v-loading.fullscreen.lock="isbatchDeleteLoading"
         @click="overrideStateProps({batchDeleteVisible:true})"
@@ -38,7 +52,7 @@
         icon="el-icon-delete"
         v-if="recision"
       >批量作废</el-button>
-    </hlBreadcrumb>
+    </HletongBreadcrumb>
     <div class="banner-wrap">
       <showbanner>
         <div class="colum">预计支出(元):</div>
@@ -275,7 +289,6 @@ import { timerMixin, dictMixin, shrinkMixin,accountMixin } from "@/common/mixin.
 import { judgeAuth } from "@/util/util.js";
 import DICT from "@/util/dict.js";
 import heltable from "@/components/hl_table";
-import hlBreadcrumb from "@/components/hl-breadcrumb";
 import financedialog from "./financedialog.vue";
 import manualdialog from "./manualdialog.vue";
 import carddialog from "./carddialog.vue";
@@ -283,7 +296,7 @@ import showbanner from "./showbanner.vue";
 import orderdetaildialog from "./orderdetaildialog.vue";
 const ORDER_STATUS = [4, 5, 6, 7, 11, 12, 13, 14]; // 状态只能是4,5,6,7,11,12,13,14
 const AUTH_OPTION_STATUS = 4; // 批量作废或者转账的
-const AUTH_REFRESH_STATUS = [6, 7]; // 状态刷新的
+const AUTH_REFRESH_STATUS = [6, 7, 14]; // 状态刷新的
 const MANUAL_STATUS = 7; // 人工确认必须是7
 const BANK_REQ_FAIL = 13; // 银行请求失败
 const defaulttableHeader = [
@@ -338,7 +351,6 @@ export default {
   mixins: [timerMixin, dictMixin, shrinkMixin,accountMixin],
   components: {
     heltable,
-    hlBreadcrumb,
     financedialog,
     manualdialog,
     carddialog,

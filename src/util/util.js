@@ -77,7 +77,7 @@ export const setglobelPermissions = (id) => {
 }
 
 export const judgeAuth = (auth) => {
-    return window.globelPermissionsAuth.includes(auth);
+    return window.globelPermissionsAuth ? window.globelPermissionsAuth.includes(auth) : false;
 }
 
 export const filterProps = (origin, target) => {

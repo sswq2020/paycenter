@@ -41,6 +41,12 @@ switch (env) {
         loginUrl = 'http://login.hlet.com';
         financeURL = 'payacc'
         break;
+    case 'yctest':
+        baseURL = 'http://10.1.15.110:8445/';
+        redirectUrl = 'http://pay.hletown.com';
+        loginUrl = 'http://login.hletown.com';
+        financeURL = 'payacc'
+        break;
     default:
         break;
 
@@ -468,6 +474,30 @@ export default {
      * */
     getOrderDesc(params) {
         return fetch(financeURL + '/web/settlementPayOrder/getOrderDesc', params,'get')
+    },
+    /**
+     * @author sswq
+     * @param params
+     * @description 获取今天的交易概况数据
+     * */
+    todaySituationData() {
+        return fetch(financeURL + '/web/indexViewData/todaySituationData', '','get')
+    },
+    /**
+     * @author sswq
+     * @param params
+     * @description 获取昨天的交易概况数据
+     * */
+    yesterdaySituationData() {
+        return fetch(financeURL + '/web/indexViewData/yesterdaySituationData', '','get')
+    },
+    /**
+     * @author sswq
+     * @param params
+     * @description 获取近一个月的交易概况数据
+     * */
+    lastMonthSituationData() {
+        return fetch(financeURL + '/web/indexViewData/oneMonthSituationData', '','get')
     },
     // #endregion
 

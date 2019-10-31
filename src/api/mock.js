@@ -5,7 +5,7 @@ const hostList = {
     default: ""
 };
 
-const IS_MOCK = true
+const IS_MOCK = false
 
 const dict = { 'SUCCESS': "000000" }
 
@@ -159,8 +159,36 @@ const getOrderDescList = {
     "transDt": '@DATE("yyyy-MM-dd HH:mm:ss")'
 }
 
+const bankAccountToday = {
+    "bankAccountVo":{
+        shortName:"惠龙账户@PICK(4,5,6,7)",
+    },
+    "inTotalAmt":"@INTEGER(90000,2019690999)",
+    "outTotalAmt":"@INTEGER(90000,2019690999)"
+}
+
+const monthData = {
+    date:'2019-10-1',
+    inTotalAmt:"@INTEGER(90000,2019690999)",
+    outTotalAmt:"@INTEGER(90000,2019690999)",
+}
+
 const mockRouterMap = {
     [hostList.default]: [
+        // #region  获取用户权限
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: '/system/manage/user/getPermissions',
+            result() {
+                return {
+                    ...body,
+                    data: [{permissionValue:"finance:cashconfirm"}]                    
+                };
+            }
+        },
+        // #endregion  
+
         // #region  查询公司账户所有信息
         {
             isMock: IS_MOCK,
@@ -455,6 +483,89 @@ const mockRouterMap = {
         },
         // #endregion          
 
+
+        // #region  获取今天的交易概况数据
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: 'payacc/web/indexViewData/todaySituationData',
+            result() {
+                return {
+                    ...body,
+                    data:{
+                        date:"",
+                        inTotalAmt:435435435,
+                        outTotalAmt:987435435,
+                        "accFlowSituVos|4":[bankAccountToday]
+                    }                    
+                };
+            }
+        },
+        // #endregion  
+
+        // #region  获取昨天的交易概况数据
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: 'payacc/web/indexViewData/yesterdaySituationData',
+            result() {
+                return {
+                    ...body,
+                    data:{
+                        date:"",
+                        inTotalAmt:115435435,
+                        outTotalAmt:117435435,
+                        "accFlowSituVos|4":[bankAccountToday]
+                    }                    
+                };
+            }
+        },
+        // #endregion  
+
+        // #region  获取近一个月的交易概况数据
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: 'payacc/web/indexViewData/oneMonthSituationData',
+            result() {
+                return {
+                    ...body,
+                    data:[{
+                        date:'2019-10-1',
+                        inTotalAmt:"@INTEGER(90000,2019690999)",
+                        outTotalAmt:"@INTEGER(90000,2019690999)",
+                    },
+                    {
+                        date:'2019-10-2',
+                        inTotalAmt:"@INTEGER(90000,2019690999)",
+                        outTotalAmt:"@INTEGER(90000,2019690999)",
+                    },
+                    {
+                        date:'2019-10-3',
+                        inTotalAmt:"@INTEGER(90000,2019690999)",
+                        outTotalAmt:"@INTEGER(90000,2019690999)",
+                    },
+                    {
+                        date:'2019-10-4',
+                        inTotalAmt:"@INTEGER(90000,2019690999)",
+                        outTotalAmt:"@INTEGER(90000,2019690999)",
+                    },
+                    {
+                        date:'2019-10-5',
+                        inTotalAmt:"@INTEGER(90000,2019690999)",
+                        outTotalAmt:"@INTEGER(90000,2019690999)",
+                    },
+                    {
+                        date:'2019-10-6',
+                        inTotalAmt:"@INTEGER(90000,2019690999)",
+                        outTotalAmt:"@INTEGER(90000,2019690999)",
+                    },                    
+                
+                  ]             
+                };
+            }
+        },
+        // #endregion  
 
         // #region  字典项
         {
