@@ -52,7 +52,7 @@
         </div>
       </div>
     </div>
-    <div class="middle" v-show="cashconfirm">
+    <div class="middle" v-show="cashconfirmAuth">
       <span class="title">
         <i class="icon icon5"></i>待办事项
       </span>
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import Dict from "@/util/dict.js";
 const defaultColumns = ["日期", "收入", "支出", "差值"];
 
@@ -123,7 +123,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("app", ["globelPermissionsAuth"])
+    ...mapGetters("app",["authLength","cashconfirmAuth"])
   },
   methods: {
     async _getCashList() {
@@ -197,11 +197,6 @@ export default {
           this.$messageError(res.mesg);
           break;
       }
-    },
-    perm() {
-      this.cashconfirm = this.globelPermissionsAuth.includes(
-        "finance:cashconfirm"
-      );
     }
   },
   mounted() {
@@ -212,8 +207,6 @@ export default {
     .then(()=>{
       this._lastMonthSituationData();
     })
-
-
     this.chartExtend = {
       xAxis: {
         show: true
@@ -231,13 +224,12 @@ export default {
         return v;
       }
     };
-    this.perm();
   },
   watch: {
-    cashconfirm(newV) {
-      if (newV) {
-        this._getCashList();
-      }
+    cashconfirmAuth(newV){
+     if(newV) {
+      this._getCashList();
+     }
     }
   }
 };

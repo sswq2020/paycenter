@@ -10,7 +10,11 @@ const store = {
         orderdetailData: [], // 订单详细数据源
         globelPermissionsAuth:[] // 系统的详细权限
     },
-
+    getters:{
+      cashconfirmAuth: state => state.globelPermissionsAuth.includes(
+        "finance:cashconfirm"
+      )
+    },
     mutations: {
         overrideStateProps(state, payload) {
             Object.keys(payload).forEach(key => {
