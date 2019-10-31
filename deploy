@@ -64,7 +64,7 @@ function testZipDeploy() {
 }
 
 function proZipDeploy() {
-  const zipName = `paycenter_pro_${now}.zip`;
+  const zipName = `pay.zip`;
   shell.echo(splitLine);
   shell.echo('Start Shift Pro_Env URL');
   shell.echo(splitLine);   
@@ -77,6 +77,7 @@ function proZipDeploy() {
   shell.echo(`zip to ${zipName}`);
   shell.echo(splitLine);
   command(`zip -m -r -q ${zipName} ./dist`);
+  command(`scp ${zipName}  share@192.168.4.16:/home/share/front/`);
   command('git checkout public/index.html');
   shell.echo('PRODUCTION_ZIP_ENV Deployed!');
 }
