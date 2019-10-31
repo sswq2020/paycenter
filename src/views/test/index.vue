@@ -13,7 +13,7 @@
             </div>
             <div class="card-expense">
               <div class="money">
-                {{item.expense}}
+                {{$numFormatter(item.expense)}}
                 <span style="font-size:16px;margin-left:5px; color:#333333;">元</span>
               </div>
               <div class="mark">
@@ -22,7 +22,7 @@
             </div>
             <div class="card-income">
               <div class="money">
-                {{item.income}}
+                {{$numFormatter(item.income)}}
                 <span style="font-size:16px;margin-left:5px; color:#333333;">元</span>
               </div>
               <div class="mark">
@@ -40,12 +40,14 @@
           <div class="half half-expense">
             <span class="mark">
               <i class="icon icon3"></i>支出
-            </span>￥59,324.00
+            </span>
+            ￥{{$numFormatter(lastDayExpense)}}
           </div>
           <div class="half half-income">
             <span class="mark">
               <i class="icon icon4"></i>收入
-            </span>￥4321,123,324.00
+            </span>
+            ￥{{$numFormatter(lastDayIncome)}}
           </div>
         </div>
       </div>
@@ -60,7 +62,7 @@
       </span>
       <span class="title">
         待付金额:
-        <span class="number">￥{{countTotalAmount}}</span>
+        <span class="number">￥{{$numFormatter(countTotalAmount)}}</span>
       </span>
     </div>
     <div class="tubiao">
@@ -83,43 +85,9 @@
 </template>
 
 <script>
-import { mapState} from "vuex";
+import { mapState } from "vuex";
 import Dict from "@/util/dict.js";
-const ChartData = {
-  columns: ["日期", "收入", "支出", "差值"],
-  rows: [
-    { 日期: "2019-09-26", 收入: 1393, 支出: 2145, 差值: 242 },
-    { 日期: "2019-09-27", 收入: 1530, 支出: 2045, 差值: 611 },
-    { 日期: "2019-09-28", 收入: 1563, 支出: 2623, 差值: 441 },
-    { 日期: "2019-09-29", 收入: 1563, 支出: 1423, 差值: 261 },
-    { 日期: "2019-09-30", 收入: 1292, 支出: 1492, 差值: 341 },
-    { 日期: "2019-10-01", 收入: 1679, 支出: 1293, 差值: 241 },
-    { 日期: "2019-10-02", 收入: 1693, 支出: 1993, 差值: 292 },
-    { 日期: "2019-10-03", 收入: 1778, 支出: 1530, 差值: 611 },
-    { 日期: "2019-10-04", 收入: 2023, 支出: 1623, 差值: 491 },
-    { 日期: "2019-10-05", 收入: 2123, 支出: 1723, 差值: 201 },
-    { 日期: "2019-10-06", 收入: 2292, 支出: 1992, 差值: 1041 },
-    { 日期: "2019-10-07", 收入: 1993, 支出: 1093, 差值: 298 },
-    { 日期: "2019-10-08", 收入: 1763, 支出: 1094, 差值: 123 },
-    { 日期: "2019-10-09", 收入: 1710, 支出: 1230, 差值: 611 },
-    { 日期: "2019-10-10", 收入: 1323, 支出: 1623, 差值: 401 },
-    { 日期: "2019-10-11", 收入: 1313, 支出: 1423, 差值: 231 },
-    { 日期: "2019-10-12", 收入: 1342, 支出: 1492, 差值: 341 },
-    { 日期: "2019-10-13", 收入: 1533, 支出: 1293, 差值: 241 },
-    { 日期: "2019-10-14", 收入: 1593, 支出: 1093, 差值: 292 },
-    { 日期: "2019-10-15", 收入: 1630, 支出: 1230, 差值: 411 },
-    { 日期: "2019-10-16", 收入: 1723, 支出: 1623, 差值: 711 },
-    { 日期: "2019-10-17", 收入: 1823, 支出: 1423, 差值: 521 },
-    { 日期: "2019-10-18", 收入: 1992, 支出: 1492, 差值: 490 },
-    { 日期: "2019-10-19", 收入: 2093, 支出: 1293, 差值: 281 },
-    { 日期: "2019-10-20", 收入: 2123, 支出: 2623, 差值: 441 },
-    { 日期: "2019-10-21", 收入: 2223, 支出: 1423, 差值: 211 },
-    { 日期: "2019-10-22", 收入: 2431, 支出: 1492, 差值: 256 },
-    { 日期: "2019-10-23", 收入: 1232, 支出: 1293, 差值: 134 },
-    { 日期: "2019-10-24", 收入: 1223, 支出: 1093, 差值: 432 },
-    { 日期: "2019-10-25", 收入: 2231, 支出: 1230, 差值: 123 }
-  ]
-};
+const defaultColumns = ["日期", "收入", "支出", "差值"];
 
 export default {
   name: "test",
@@ -127,7 +95,7 @@ export default {
     this.chartColors = ["#F85757", "#55BB58", "#00ABFF"];
     this.title = {
       textAlign: "left",
-      text: "单位:元",
+      text: "单位: 万元",
       textStyle: {
         fontSize: 12,
         fontWeight: "normal"
@@ -139,40 +107,23 @@ export default {
       countTotalAmount: "暂无",
       totalCount: "暂无",
       cashconfirm: false,
-      
       loading: false,
-      dataEmpty: true,
       chartData: Object.create(null),
       chartSettings: {
-        // yAxisName: ["单位:  万元"]
+      //  yAxisType: ['KMB'],
       },
       chartExtend: null,
-      cards: [
-        {
-          number: "1605",
-          income: 245645,
-          expense: 344533454343
-        },
-        {
-          number: "1651",
-          income: 245645,
-          expense: 12132134453
-        },
-        {
-          number: "0396",
-          income: 245645,
-          expense: 1123123123
-        },
-        {
-          number: "0395",
-          income: 245645,
-          expense: 1231223425
-        }
-      ]
+      cards: new Array(4).fill({
+        number: "暂无",
+        income: 0,
+        expense: 0
+      }),
+      lastDayExpense: 0,
+      lastDayIncome: 0
     };
   },
-  computed:{
-    ...mapState("app",["globelPermissionsAuth"])
+  computed: {
+    ...mapState("app", ["globelPermissionsAuth"])
   },
   methods: {
     async _getCashList() {
@@ -187,11 +138,82 @@ export default {
           break;
       }
     },
+    async _todaySituationData() {
+      const res = await this.$api.todaySituationData();
+      switch (res.code) {
+        case Dict.SUCCESS:
+          if (res.data.accFlowSituVos && res.data.accFlowSituVos.length) {
+            let list = res.data.accFlowSituVos;
+            list = list.map(item => {
+              const { inTotalAmt, outTotalAmt, bankAccountVo } = item;
+              const { shortName } = bankAccountVo;
+              return {
+                number: shortName,
+                income: inTotalAmt,
+                expense: outTotalAmt
+              };
+            });
+            this.cards = list;
+          }
+          break;
+        default:
+          this.$messageError(res.mesg);
+          break;
+      }
+    },
+    async _yesterdaySituationData() {
+      const res = await this.$api.yesterdaySituationData();
+      switch (res.code) {
+        case Dict.SUCCESS:
+          this.lastDayExpense = res.data.outTotalAmt || "暂无";
+          this.lastDayIncome = res.data.inTotalAmt || "暂无";
+          break;
+        default:
+          this.$messageError(res.mesg);
+          break;
+      }
+    },
+    async _lastMonthSituationData() {
+      this.loading = true;
+      const res = await this.$api.lastMonthSituationData();
+      this.loading = false;
+      switch (res.code) {
+        case Dict.SUCCESS:
+          if (res.data && res.data.length) {            
+            let list = res.data;
+            list = list.map((item) => {
+              const { inTotalAmt, outTotalAmt,date } = item;
+              return {
+                [defaultColumns[0]]: date,
+                [defaultColumns[1]]: inTotalAmt / 10000,
+                [defaultColumns[2]]: outTotalAmt / 10000,
+                [defaultColumns[3]]: Math.abs(inTotalAmt - outTotalAmt) / 10000
+              };
+            });
+            this.chartData = Object.assign({},{columns:defaultColumns},{rows:list})
+          }
+          break;
+        default:
+          this.$messageError(res.mesg);
+          break;
+      }
+    },
     perm() {
-      this.cashconfirm = this.globelPermissionsAuth.includes("finance:cashconfirm");
+      this.cashconfirm = this.globelPermissionsAuth.includes(
+        "finance:cashconfirm"
+      );
     }
   },
   mounted() {
+    this._todaySituationData()
+    .then(()=>{
+      this._yesterdaySituationData()
+    })
+    .then(()=>{
+      this._lastMonthSituationData();
+    })
+
+
     this.chartExtend = {
       xAxis: {
         show: true
@@ -209,12 +231,6 @@ export default {
         return v;
       }
     };
-    this.loading = true;
-    setTimeout(() => {
-      this.chartData = ChartData;
-      this.loading = false;
-      this.dataEmpty = false;
-    }, 3000);
     this.perm();
   },
   watch: {
