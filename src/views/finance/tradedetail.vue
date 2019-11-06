@@ -176,10 +176,10 @@
       </el-table-column>
 
       <el-table-column
-        align="center"
+        :align="item.align || 'left'"
+        :width="item.width || null"
         :prop="item.prop"
         :label="item.label"
-        :fixed="needfixed(item.fixed)"
         :key="item.id"
         v-for="(item) in tableHeader"
         :show-overflow-tooltip="showOverflowTooltip"
@@ -229,62 +229,53 @@ const defaulttableHeader = [
   {
     prop: "creditNo",
     label: "交易凭证号",
-    width: "180"
   },
   {
     prop: "fund",
-    label: "款项",
-    width: "180"
+    label: "款项"
   },
   {
     prop: "amount",
     label: "金额(元)",
-    width: "180"
+    align:"right"
   },
   {
     prop: "appCode",
     label: "数据来源",
-    width: "180"
   },
   {
     prop: "payerAccountName",
     label: "转出账户名",
-    width: "180"
   },
   {
     prop: "payeeAccountName",
     label: "转入账户名",
-    width: "180"
   },
   {
     prop: "payeeBankNo",
     label: "转入账户号",
-    width: "180"
   },
   {
     prop: "payeeOpenDept",
     label: "转入账户开户机构",
-    width: "180"
+    width: "150"
   },
   {
     prop: "status",
     label: "状态",
-    width: "180"
   },
   {
     prop: "callbackStatus",
     label: "同步状态",
-    width: "180"
   },
   {
     prop: "returnMsg",
     label: "备注",
-    width: "180"
   },
   {
     prop: "payTime",
     label: "支付时间",
-    width: "180"
+    align:"right"
   }
 ];
 
@@ -386,20 +377,6 @@ export default {
     },    
     open() {
       this.$refs.dialog.open();
-    },
-    needfixed(fixed) {
-      if (!fixed) {
-        return false;
-      } else {
-        return fixed;
-      }
-    },
-    needwidth(width) {
-      if (!width) {
-        return;
-      } else {
-        return width;
-      }
     },
     init() {
       setTimeout(() => {

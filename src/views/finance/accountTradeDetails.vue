@@ -50,7 +50,8 @@
     >
       >
       <el-table-column
-        align="center"
+        :align="item.align || 'left'"
+        :width="item.width || null"
         :prop="item.prop"
         :label="item.label"
         :key="item.id"
@@ -101,11 +102,13 @@ export const defaulttableHeader = [
   },
   {
     prop: "amount",
-    label: "发生金额"
+    label: "发生金额",
+    align:"right"
   },
   {
     prop: "balance",
-    label: "余额"
+    label: "余额",
+    align:"right"
   }
 ];
 export default {
