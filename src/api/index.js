@@ -36,7 +36,7 @@ switch (env) {
         financeURL = 'payacc'
         break;
     case 'test':
-        baseURL = 'http://cw.hlet.com';
+        baseURL = 'http://test.hletong.com/apis/';
         redirectUrl = 'http://cw.hlet.com';
         loginUrl = 'http://login.hlet.com';
         financeURL = 'payacc'
