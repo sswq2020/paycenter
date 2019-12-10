@@ -100,7 +100,6 @@
                 <el-form-item
                   label="审核意见"
                   prop="remark"
-                  :rules="[{ required: true, message: '必填' }]"
                 >
                   <el-input type="textarea" v-model="form.remark"></el-input>
                 </el-form-item>
@@ -121,7 +120,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 // import moment from "moment";
 import { mapState, mapMutations } from "vuex";
 import Dict from "util/dict.js";
@@ -179,7 +177,7 @@ export default {
   data() {
     return {
       loading: false,
-      form: _.cloneDeep(defualtFormParams),
+      form: {...defualtFormParams},
       tableHeader: defaulttableHeader,
 
       AuditResultList,
@@ -204,7 +202,7 @@ export default {
       });
     },
     _filter() {
-      let params = _.cloneDeep(this.form);
+      let params = deepMerge(this.form);
       params.id = this.reimburseId;
       return params;
     },
@@ -213,7 +211,7 @@ export default {
       switch (res.code) {
         case Dict.SUCCESS:
           this.form.remark = res.data.remark;
-          this.status = res.data.status;
+          this.form.status = res.data.status;
           this.receiveform = res.data;
           break;
         default:
