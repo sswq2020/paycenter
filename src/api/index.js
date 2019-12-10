@@ -516,9 +516,22 @@ export default {
      * @description 部门树
      * */
     getOriginzationList() {
-        return fetch(expenseURL + 'expense/detail/getOriginzationList', {pid:0},'get')
+        return fetch(expenseURL + '/web/expense/detail/getOriginzationList', {pid:0},'get')
     },
-
+    /**
+     * @author sswq
+     * @description 根据id查询报销详情
+     * */
+    getReimburseDetail(id) {
+        return fetch(expenseURL + '/webweb/expense/detail/get', {id},'get')
+    },
+    /**
+     * @author sswq
+     * @description 更新报销审核状态
+     * */
+    updateReimburse(params) {
+        return fetch(expenseURL + '/webweb/expense/detail/update', params)
+    },
     // #endregion
 
     // #region  字典项

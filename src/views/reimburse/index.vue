@@ -101,6 +101,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import { requestParamsByTimeRange, DICT_SELECT_ARR } from "common/util.js";
 import _ from "lodash";
 import Dict from "util/dict.js";
@@ -201,6 +202,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations('reimburse',["setReimburseId","setReimburseStatus"]),
     _filter() {
       const { timeRange } = this.form;
       const _reqParams_ = requestParamsByTimeRange(
@@ -265,6 +267,23 @@ export default {
           this.$messageError(res.mesg);
           break;
       }
+    },
+    goto() {
+      this.$router.push({
+        path: "/web/expense/detail/audit"
+      });
+    },
+    todo(item){
+      const {id,status} = item
+      this.setReimburseId(id);
+      this.setReimburseStatus(status);
+      this.goto();
+    },
+    find(item){
+      const {id,status} = item
+      this.setReimburseId(id);
+      this.setReimburseStatus(status);
+      this.goto();
     },
     init() {
       setTimeout(() => {

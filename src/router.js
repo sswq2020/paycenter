@@ -8,6 +8,7 @@ const AccountTradeDetails = () => import('@/views/finance/accountTradeDetails')
 
 
 const Reimbursemanage = () => import('@/views/reimburse/index')
+const AuditReimburse = () => import('@/views/reimburse/auditReimburse')
 
 
 Vue.use(Router)
@@ -65,7 +66,11 @@ let commonRoutes = {
             name: 'reimbursemanage',
             component: Reimbursemanage
         },
-
+        {
+            path: '/web/expense/detail/audit',
+            name: 'auditReimburse',
+            component: AuditReimburse
+        },
     ]
 }
 
