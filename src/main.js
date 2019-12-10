@@ -20,6 +20,8 @@ import 'v-charts/lib/style.css';
 
 import './static/reset.css';
 import './static/common.css';
+import 'viewerjs/dist/viewer.css'
+import Viewer from 'v-viewer'
 import {router} from './router'
 import store from './store'
 import api from '@/api'
@@ -31,6 +33,7 @@ Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(hlet);
 Vue.use(VueCropper);
+Vue.use(Viewer)
 Vue.prototype.$api = api;
 Vue.prototype.$numFormatter = (n=0) => numFormatter(n)
 
