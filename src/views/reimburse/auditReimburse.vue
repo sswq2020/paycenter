@@ -50,6 +50,7 @@
                   >点击查看</el-button>
                 </template>
               </el-table-column>
+            </el-table>   
             <el-row>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
                 <el-form-item label="填报费用总金额">{{receiveform.totleMoneny || "-"}}</el-form-item>
