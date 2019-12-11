@@ -86,7 +86,7 @@
                   prop="status"
                   :rules="[{ required: true, message: '必填' }]"
                 >
-                  <el-select v-model="form.status" placeholder="请选择">
+                  <el-select v-model="form.status" placeholder="请选择" :disabled="reimburseStatus !== Dict.WAIT_ADUIT">
                     <el-option
                       v-for="(item,index) in AuditResultList"
                       :key="index"
@@ -101,7 +101,7 @@
                   label="审核意见"
                   prop="remark"
                 >
-                  <el-input type="textarea" v-model="form.remark"></el-input>
+                  <el-input type="textarea" v-model="form.remark"  :disabled="reimburseStatus !== Dict.WAIT_ADUIT"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -123,12 +123,11 @@
 // import moment from "moment";
 import { mapState, mapMutations } from "vuex";
 import Dict from "util/dict.js";
-import { deleteProps } from "util/util";
 import { deepMerge,DICT_SELECT_ARR } from "common/util";
 
 let copyList = deepMerge(Dict.BITE_STATUS);
- copyList = deleteProps(copyList,Dict.DRAFT,Dict.WAIT_ADUIT)
-
+delete copyList[Dict.DRAFT]
+delete copyList[Dict.WAIT_ADUIT]
 const AuditResultList = DICT_SELECT_ARR(copyList);
 
 const defaulttableHeader = [
@@ -179,6 +178,7 @@ export default {
       loading: false,
       form: {...defualtFormParams},
       tableHeader: defaulttableHeader,
+      Dict,
 
       AuditResultList,
 
@@ -211,7 +211,9 @@ export default {
       switch (res.code) {
         case Dict.SUCCESS:
           this.form.remark = res.data.remark;
-          this.form.status = res.data.status;
+          if(res.data.status === Dict.BACK_ADUIT || res.data.status === Dict.ENTER_ADUIT ) {
+             this.form.status = res.data.status;
+          }
           this.receiveform = res.data;
           break;
         default:

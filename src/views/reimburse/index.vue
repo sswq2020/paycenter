@@ -7,7 +7,6 @@
         <div class="form-control">
           <treeSelect
             class="tree-select"
-            style="max-width: 415px"
             ref="treeSelect"
             :data="departments"
             :defaultProps="defaultProps"
@@ -82,7 +81,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="150px">
+      <el-table-column label="操作" width="150px" align='left'>
         <template slot-scope="scope">
           <el-button
             type="text"
@@ -288,6 +287,7 @@ export default {
     init() {
       setTimeout(() => {
         this.clearListParams();
+        this._getOriginzationList();
         this.perm();
       }, 20);
       this.perm();

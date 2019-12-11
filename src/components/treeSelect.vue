@@ -35,7 +35,6 @@
                        v-model="selectedData"
                        :multiple="multiple"
                        @click.native="isShowSelect = !isShowSelect"
-                       style="width: 415px;"
                        class="tree-select">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
             </el-select>
@@ -157,7 +156,7 @@
                             this.selectedData = '';
                             this.$refs.tree.setCurrentKey(null);
                         }
-                    };
+                    }
                 }
             },
             popoverHide () {

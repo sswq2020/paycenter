@@ -523,14 +523,14 @@ export default {
      * @description 根据id查询报销详情
      * */
     getReimburseDetail(id) {
-        return fetch(expenseURL + '/webweb/expense/detail/get', {id},'get')
+        return fetch(expenseURL + '/web/expense/detail/get', {id},'get')
     },
     /**
      * @author sswq
      * @description 更新报销审核状态
      * */
     updateReimburse(params) {
-        return fetch(expenseURL + '/webweb/expense/detail/update', params)
+        return fetch(expenseURL + '/web/expense/detail/update', params)
     },
     // #endregion
 
