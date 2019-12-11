@@ -166,7 +166,7 @@ const rowAdapter = list => {
     list = list.map(row => {
       return (row = {
         ...row,
-        createdTimeText: `${moment(row.createdTime).format("YYYY-MM-DD")}`,
+        createdTimeText: `${moment(Number(row.createdTime)).format("YYYY-MM-DD")}`,
       });
     });
   }
