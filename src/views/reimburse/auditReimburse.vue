@@ -11,22 +11,29 @@
             <div class="head">基础信息</div>
             <el-row>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="部门">{{receiveform.deptName || "-"}}</el-form-item>
+                <el-form-item label="部门:">{{receiveform.deptName || "-"}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="姓名">{{receiveform.createdName || "-"}}</el-form-item>
+                <el-form-item label="姓名:">{{receiveform.createdName || "-"}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="填报日期">{{receiveform.createdTime || "-"}}</el-form-item>
+                <el-form-item label="填报日期:">{{receiveform.createdTime || "-"}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="事由">{{receiveform.title || "-"}}</el-form-item>
+                <el-form-item label="事由:">{{receiveform.title || "-"}}</el-form-item>
               </el-col>
             </el-row>
           </div>
           <div class="form-block">
             <div class="head">报销信息</div>
-            <el-table :data="receiveform.detailList" v-if="receiveform.detailList && receiveform.detailList.length " stripe border>
+            <el-table :data="receiveform.detailList" v-if="receiveform.detailList && receiveform.detailList.length " :header-cell-style="tableHeaderColor" stripe border>
+              <el-table-column label="序号" align="center">
+                >
+                <template slot-scope="scope">
+                   <span>{{scope.$index + 1}}</span>
+                </template>
+              </el-table-column>              
+              
               <el-table-column
                 :prop="item.prop"
                 :label="item.label"
@@ -53,13 +60,13 @@
             </el-table>   
             <el-row>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="填报费用总金额">{{receiveform.totleMoneny || "-"}}</el-form-item>
+                <el-form-item label="填报费用总金额:">{{receiveform.totleMoneny || "-"}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="填报费用总税额">{{receiveform.totleTax || "-"}}</el-form-item>
+                <el-form-item label="填报费用总税额:">{{receiveform.totleTax || "-"}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="填报费用金额">{{receiveform.earnMoney || "-"}}</el-form-item>
+                <el-form-item label="填报费用金额:">{{receiveform.earnMoney || "-"}}</el-form-item>
               </el-col>
             </el-row>
           </div>
@@ -67,13 +74,13 @@
             <div class="head">支付信息</div>
             <el-row>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="往来">{{receiveform.comeGo  || "-"}}</el-form-item>
+                <el-form-item label="往来:">{{receiveform.comeGo  || "-"}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="现金">{{receiveform.comeGo  || "-"}}</el-form-item>
+                <el-form-item label="现金:">{{receiveform.comeGo  || "-"}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="银行卡">{{receiveform.comeGo || "-"}}</el-form-item>
+                <el-form-item label="银行卡:">{{receiveform.comeGo || "-"}}</el-form-item>
               </el-col>
             </el-row>
           </div>
@@ -82,7 +89,7 @@
             <el-row>
               <el-col :md="24" :sm="24" :xs="24">
                 <el-form-item
-                  label="审核结果"
+                  label="审核结果:"
                   prop="status"
                   :rules="[{ required: true, message: '必填' }]"
                 >
@@ -98,7 +105,7 @@
               </el-col>
               <el-col :md="12" :sm="12" :xs="24">
                 <el-form-item
-                  label="审核意见"
+                  label="审核意见:"
                   prop="remark"
                 >
                   <el-input type="textarea" v-model="form.remark"  :disabled="reimburseStatus !== Dict.WAIT_ADUIT"></el-input>
@@ -252,6 +259,12 @@ export default {
         const viewer = this.$el.querySelector(".images").$viewer;
         viewer.show();
       }, 500);
+    },
+        // 修改table header的背景色
+    tableHeaderColor({ rowIndex }) {
+      if (rowIndex === 0) {
+        return "background-color: #F6F8FA;color: #262626;font-weight: 500;";
+      }
     }
   },
   mounted() {
@@ -271,10 +284,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-.amap-demo {
-  height: 300px;
-}
-
 .computedHeight {
   height: calc(100% - 101px);
   overflow: auto;

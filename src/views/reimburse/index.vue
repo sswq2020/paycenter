@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="form-item">
-        <label>申请日期</label>
+        <label>提交日期</label>
         <div class="form-control">
           <el-date-picker
             v-model="form.timeRange"
@@ -101,13 +101,15 @@
 
 <script>
 import { mapMutations } from "vuex";
-import { requestParamsByTimeRange, DICT_SELECT_ARR } from "common/util.js";
+import { requestParamsByTimeRange, DICT_SELECT_ARR,deepMerge } from "common/util.js";
 import _ from "lodash";
 import Dict from "util/dict.js";
 import moment from 'moment';
 import treeSelect from "components/treeSelect";
 
-const BiteStatustList = DICT_SELECT_ARR(Dict.BITE_STATUS);
+let copyList = deepMerge(Dict.BITE_STATUS);
+delete copyList[Dict.DRAFT]
+const BiteStatustList = DICT_SELECT_ARR(copyList);
 
 /**只是请求参数的key,页面中的观察属性却不需要，只在请求的那一刻由timeRange赋值*/
 const EXTRA_PARAMS_KEYS = ["startTime", "endTime"];
@@ -132,7 +134,7 @@ const defaultListData = {
 const defaulttableHeader = [
   {
     prop: "createdTimeText",
-    label: "填报日期"
+    label: "提交时间"
   },
   {
     prop: "deptName",
@@ -166,7 +168,7 @@ const rowAdapter = list => {
     list = list.map(row => {
       return (row = {
         ...row,
-        createdTimeText: `${moment(Number(row.createdTime)).format("YYYY-MM-DD")}`,
+        createdTimeText: `${moment(Number(row.createdTime)).format("YYYY-MM-DD HH:mm:ss")}`,
       });
     });
   }
