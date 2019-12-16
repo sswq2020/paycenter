@@ -123,11 +123,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("app",["authLength","cashconfirmAuth"])
+    ...mapGetters("app",["cashconfirmAuth"])
   },
   methods: {
     async _getCashList() {
-      const res = await this.$api.getCashList({ page: 1, pageSize: 10 });
+      const res = await this.$api.getCashList({ page: 1, pageSize: 10,status: [4, 13] });
       switch (res.code) {
         case Dict.SUCCESS:
           this.countTotalAmount = res.data.countTotalAmount;

@@ -144,7 +144,7 @@
       @selection-change="selectChange"
       :loading="isListDataLoading"
     >
-      <el-table-column label="业务单号" align="center">
+      <el-table-column label="业务单号" align="center" width="160">
         <template slot-scope="scope">
           <el-button
             type="text"
@@ -154,11 +154,10 @@
       </el-table-column>
 
       <el-table-column
-        align="center"
+        :align="item.align || 'left'"
+        :width="item.width || null"
         :prop="item.prop"
         :label="item.label"
-        :fixed="needfixed(item.fixed)"
-        :width="needwidth(item.width)"
         :key="item.id"
         v-for="(item) in tableHeader"
         :show-overflow-tooltip="showOverflowTooltip"
@@ -235,48 +234,41 @@ const defaulttableHeader = [
   {
     prop: "fund",
     label: "款项"
-    // width: "120"
   },
   {
     prop: "amount",
-    label: "金额(元)"
-    // width: "120"
+    label: "金额(元)",
+    align:"right"
   },
   {
     prop: "appCode",
     label: "数据来源"
-    // width: "120"
   },
   {
     prop: "payerAccountName",
     label: "转出账户名"
-    // width: "120"
   },
   {
     prop: "payeeAccountName",
     label: "转入账户名"
-    // width: "120"
   },
   {
     prop: "payeeBankNo",
     label: "转入账户号"
-    // width: "120"
   },
   {
     prop: "payeeOpenDept",
     label: "转入账户开户机构",
-    width: "120"
+    width: "150"
   },
   {
     prop: "status",
-    label: "状态",
-    fixed: "right"
-    // width: "120"
+    label: "状态"
   },
   {
     prop: "createdTime",
-    label: "创建时间"
-    // width: "120"
+    label: "创建时间",
+    align:"right"
   }
 ];
 export default {
@@ -358,16 +350,6 @@ export default {
     },
     selectChange(selection) {
       this.selectedItems = selection.slice();
-    },
-    needfixed(fixed) {
-      return !fixed ? false : fixed;
-    },
-    needwidth(width) {
-      if (!width) {
-        return;
-      } else {
-        return width;
-      }
     },
     openCarddialogdialog(auditInstances) {
       this.setAuditInstances(auditInstances);

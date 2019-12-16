@@ -207,7 +207,3 @@
 #perm .el-radio__label {
     padding-left: 5px !important;
 }
-
-.el-table .cell, .el-table th div, .el-table--border td:first-child .cell, .el-table--border th:first-child .cell {
-    padding: 0px;
-}

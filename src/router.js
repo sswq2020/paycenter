@@ -6,6 +6,11 @@ const TradeDetail = () => import('@/views/finance/tradedetail')
 const AccountInfomanage = () => import('@/views/finance/accountinfomanage')
 const AccountTradeDetails = () => import('@/views/finance/accountTradeDetails')
 
+
+const Reimbursemanage = () => import('@/views/reimburse/index')
+const AuditReimburse = () => import('@/views/reimburse/auditReimburse')
+
+
 Vue.use(Router)
 
 let globelRoutes = [
@@ -55,6 +60,16 @@ let commonRoutes = {
             path: '/finance/accountTradeDetails',
             name: 'accountTradeDetails',
             component: AccountTradeDetails
+        },
+        {
+            path: '/web/expense/detail/pageSH',
+            name: 'reimbursemanage',
+            component: Reimbursemanage
+        },
+        {
+            path: '/web/expense/detail/audit',
+            name: 'auditReimburse',
+            component: AuditReimburse
         },
     ]
 }

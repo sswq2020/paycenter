@@ -81,3 +81,35 @@ export const DICT_SELECT_ARR = (DictObj) => {
       };
     });
   };
+
+/**
+ * @description 判断普通对象
+ */
+export function isPlainObject(val) {
+    return Object.prototype.toString.call(val) === '[object Object]'
+}
+
+/**
+ * @description 这里只实现普通对象的深度拷贝,Lodash考虑得到太复杂,所以自己实现更方便一些
+ */
+export function deepMerge(...objs) {
+    const result = Object.create(null)
+    objs.forEach(obj => {
+        if (obj) {
+            Object.keys(obj).forEach(key => {
+                const val = obj[key]
+                if (isPlainObject(val)) {
+                    if (isPlainObject(result[key])) {
+                        result[key] = deepMerge(result[key], val)
+                    } else {
+                        result[key] = deepMerge(val)
+                    }
+                } else {
+                    result[key] = val
+                }
+
+            })
+        }
+    })
+    return result
+}  

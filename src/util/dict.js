@@ -18,6 +18,23 @@ DICT.APP_INFO = {
     [DICT.OEM_PLANT]:'App提现'
 }
 
+/***草稿**/
+DICT.DRAFT = '0'
+/***待审核**/
+DICT.WAIT_ADUIT = '1'
+/***退回**/
+DICT.BACK_ADUIT = '2'
+/***审核通过**/
+DICT.ENTER_ADUIT = '3'
+/***报销状态**/
+DICT.BITE_STATUS= {
+    [DICT.DRAFT]:'草稿',
+    [DICT.WAIT_ADUIT] :'待审核',
+    [DICT.BACK_ADUIT] : '退回',
+    [DICT.ENTER_ADUIT] : '审核通过'
+} 
+
+
 DICT.NOTIFY_STATUS  = {
     "0":'失败',
     "1":'成功',

@@ -16,6 +16,7 @@ let uploadUrl = '/apis';
 let validUrl = 'http://10.1.15.106:8102';
 
 let financeURL = '';
+let expenseURL = '';
 
 
 // window.globelApi2 = 'http://10.1.15.106:8445'//test环境
@@ -36,10 +37,11 @@ switch (env) {
         financeURL = 'payacc'
         break;
     case 'test':
-        baseURL = 'http://10.1.15.106:8445';
+        baseURL = 'http://test.hletong.com/apis/';
         redirectUrl = 'http://cw.hlet.com';
         loginUrl = 'http://login.hlet.com';
-        financeURL = 'payacc'
+        financeURL = 'payacc';
+        expenseURL = 'expense';
         break;
     case 'yctest':
         baseURL = 'http://10.1.15.110:8445/';
@@ -498,6 +500,37 @@ export default {
      * */
     lastMonthSituationData() {
         return fetch(financeURL + '/web/indexViewData/oneMonthSituationData', '','get')
+    },
+    // #endregion
+
+    // #region  报销系统
+    /**
+     * @author sswq
+     * @description 报销管理分页
+     * */
+    reimburseManagePage(params) {
+        return fetch(expenseURL + '/web/expense/detail/pageSH', params)
+    },
+    /**
+     * @author sswq
+     * @description 部门树
+     * */
+    getOriginzationList() {
+        return fetch(expenseURL + '/web/expense/detail/getOriginzationList', {pid:0},'get')
+    },
+    /**
+     * @author sswq
+     * @description 根据id查询报销详情
+     * */
+    getReimburseDetail(id) {
+        return fetch(expenseURL + '/web/expense/detail/get', {id},'get')
+    },
+    /**
+     * @author sswq
+     * @description 更新报销审核状态
+     * */
+    updateReimburse(params) {
+        return fetch(expenseURL + '/web/expense/detail/update', params)
     },
     // #endregion
 
