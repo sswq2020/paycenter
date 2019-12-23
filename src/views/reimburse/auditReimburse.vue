@@ -27,18 +27,18 @@
           <div class="form-block">
             <div class="head">报销信息</div>
             <el-table :data="receiveform.detailList" v-if="receiveform.detailList && receiveform.detailList.length " :header-cell-style="tableHeaderColor" stripe border>
-              <el-table-column label="序号" align="center">
+              <el-table-column label="序号" width="80px" align="center">
                 >
                 <template slot-scope="scope">
                    <span>{{scope.$index + 1}}</span>
                 </template>
-              </el-table-column>              
-              
+              </el-table-column>
+
               <el-table-column
                 :prop="item.prop"
                 :label="item.label"
                 :width="item.width || 'auto'"
-                :align="item.align || 'center'"
+                :align="item.align || 'left'"
                 header-align="center"
                 :key="index"
                 v-for="(item,index) in tableHeader"
@@ -47,7 +47,8 @@
                   <span>{{receiveform.detailList[scope.$index][item.prop]}}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="附件" align="center">
+              <el-table-column></el-table-column>
+              <el-table-column label="附件" align="center" :width="100">
                 >
                 <template slot-scope="scope">
                   <el-button
@@ -57,16 +58,16 @@
                   >点击查看</el-button>
                 </template>
               </el-table-column>
-            </el-table>   
+            </el-table>
             <el-row>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="填报费用总金额:">{{receiveform.totleMoneny || "-"}}</el-form-item>
+                <el-form-item label="填报费用总金额:">{{receiveform.totleMoney || "0"}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="填报费用总税额:">{{receiveform.totleTax || "-"}}</el-form-item>
+                <el-form-item label="填报费用总税额:">{{receiveform.totleTax || "0"}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="填报费用金额:">{{receiveform.earnMoney || "-"}}</el-form-item>
+                <el-form-item label="填报费用金额:">{{receiveform.earnMoney || "0"}}</el-form-item>
               </el-col>
             </el-row>
           </div>
@@ -74,13 +75,13 @@
             <div class="head">支付信息</div>
             <el-row>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="往来:">{{receiveform.comeGo  || "-"}}</el-form-item>
+                <el-form-item label="往来:">{{receiveform.comeGo  || "0"}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="现金:">{{receiveform.comeGo  || "-"}}</el-form-item>
+                <el-form-item label="现金:">{{receiveform.paymentType == '0'?receiveform.giveMoney||"0":"0"}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <el-form-item label="银行卡:">{{receiveform.comeGo || "-"}}</el-form-item>
+                <el-form-item label="银行卡:">{{receiveform.paymentType == '1'?receiveform.giveMoney||"0":"0"}}</el-form-item>
               </el-col>
             </el-row>
           </div>
@@ -107,6 +108,7 @@
                 <el-form-item
                   label="审核意见:"
                   prop="remark"
+                  :rules="[{required: form.status=='2'?true:false,message: '必填' }]"
                 >
                   <el-input type="textarea" v-model="form.remark"  :disabled="reimburseStatus !== Dict.WAIT_ADUIT"></el-input>
                 </el-form-item>
@@ -140,35 +142,48 @@ const AuditResultList = DICT_SELECT_ARR(copyList);
 const defaulttableHeader = [
   {
     prop: "feeFirstName",
-    label: "费用科目"
+    label: "费用科目",
+    width:150,
   },
   {
     prop: "feeSecondName",
-    label: "会计科目"
+    label: "会计科目",
+    width:150,
   },
   {
     prop: "isTaxName",
-    label: "发票类型"
+    label: "发票类型",
+    width:150,
   },
   {
     prop: "sbTotleMoney",
-    label: "总金额"
+    label: "总金额",
+    align:'right',
+    width:100,
   },
   {
     prop: "sbTax",
-    label: "税额"
+    label: "税额",
+    align: "right",
+    width:100,
   },
   {
     prop: "srTotleMoney",
-    label: "实际总金额"
+    label: "实际总金额",
+    align:"right",
+    width:180,
   },
   {
     prop: "srTax",
-    label: "实际税额"
+    label: "实际税额",
+    align:'right',
+    width:150,
   },
   {
     prop: "sbMoney",
-    label: "金额"
+    label: "金额",
+    align:'right',
+    width:150
   }
 
 ];
@@ -221,6 +236,7 @@ export default {
           if(res.data.status === Dict.BACK_ADUIT || res.data.status === Dict.ENTER_ADUIT ) {
              this.form.status = res.data.status;
           }
+          console.log(res.data);
           this.receiveform = res.data;
           break;
         default:
@@ -336,4 +352,3 @@ export default {
 }
 </style>
 
-    

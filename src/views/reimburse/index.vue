@@ -70,6 +70,7 @@
     >
       <el-table-column
         :align="item.align || 'left'"
+        :width="item.width || 'auto'"
         :prop="item.prop"
         :label="item.label"
         :key="item.id"
@@ -81,7 +82,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="150px" align='left'>
+      <el-table-column label="操作" align='left' :width="100" fixed="right">
         <template slot-scope="scope">
           <el-button
             type="text"
@@ -106,6 +107,7 @@ import _ from "lodash";
 import Dict from "util/dict.js";
 import moment from 'moment';
 import treeSelect from "components/treeSelect";
+// import HletongTable from 'components/HletongTable'
 
 let copyList = deepMerge(Dict.BITE_STATUS);
 delete copyList[Dict.DRAFT]
@@ -134,29 +136,35 @@ const defaultListData = {
 const defaulttableHeader = [
   {
     prop: "createdTimeText",
-    label: "提交时间"
+    label: "提交时间",
+    width:180,
   },
   {
     prop: "deptName",
-    label: "部门"
+    label: "部门",
+    width:120,
   },
   {
     prop: "createdName",
-    label: "姓名"
+    label: "姓名",
+    width:120,
   },
   {
-    prop: "totleMoneny",
+    prop: "totleMoney",
     label: "填报费用总金额",
-    align: "right"
+    align: "right",
+    width:180,
   },
   {
     prop: "totleTax",
     label: "填报费用总税额",
-    align: "right"
+    align: "right",
+    width:180,
   },
   {
     prop: "statusName",
-    label: "报销状态"
+    label: "报销状态",
+    width:120,
   }
 ];
 
@@ -178,7 +186,8 @@ const rowAdapter = list => {
 export default {
   name: "reimbursemanage",
   components: {
-    treeSelect
+    treeSelect,
+    // HletongTable
   },
   data() {
     return {
@@ -238,6 +247,7 @@ export default {
     },
     async getListData() {
       let obj = this._filter();
+
       this.isListDataLoading = true;
       const res = await this.$api.reimburseManagePage(obj);
       this.isListDataLoading = false;
