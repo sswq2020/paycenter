@@ -34,7 +34,8 @@ switch (env) {
     case 'production':
         loginUrl = 'https://login.hletong.com/';
         redirectUrl = 'https://pay.hletong.com/';
-        financeURL = 'payacc'
+        financeURL = 'payacc';
+        expenseURL = 'expense';
         break;
     case 'test':
         baseURL = 'http://test.hletong.com/apis/';
