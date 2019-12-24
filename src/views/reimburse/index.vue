@@ -107,7 +107,7 @@ import _ from "lodash";
 import Dict from "util/dict.js";
 import moment from 'moment';
 import treeSelect from "components/treeSelect";
-// import HletongTable from 'components/HletongTable'
+import HletongTable from 'components/HletongTable'
 
 let copyList = deepMerge(Dict.BITE_STATUS);
 delete copyList[Dict.DRAFT]
@@ -187,7 +187,7 @@ export default {
   name: "reimbursemanage",
   components: {
     treeSelect,
-    // HletongTable
+    HletongTable
   },
   data() {
     return {
