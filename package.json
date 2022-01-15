@@ -46,7 +46,7 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "qs": "^6.6.0",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.5",
     "spritejs": "^2.27.4",
     "vue-cropper": "^0.4.8",
     "vue-template-compiler": "^2.5.21"
