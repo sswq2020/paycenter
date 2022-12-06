@@ -45,7 +45,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
-    "qs": "^6.6.0",
+    "qs": "^6.6.1",
     "shelljs": "^0.8.3",
     "spritejs": "^2.27.4",
     "vue-cropper": "^0.4.8",
